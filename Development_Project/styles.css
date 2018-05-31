@@ -1,6 +1,8 @@
 canvas {
-    border: 1px solid black;
+    border: 1px solid blue;
+    background-color: azure;
 }
+
 body {
     margin: 0;
     overflow: hidden;
