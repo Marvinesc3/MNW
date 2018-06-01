@@ -14,10 +14,6 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
 function keyDownHandler(e) {
-    if ((((e.keyCode === 91) || (e.keyCode === 17)) && (e.keyCode === 16) && (e.keyCode === 67)) || (e.keyCode === 123)) {
-        return false;
-    }
-
     if (e.keyCode === 68 || e.keyCode === 39) {
         rightPressed = true;
     } else if (e.keyCode === 65 || e.keyCode === 37) {
@@ -40,6 +36,12 @@ function keyUpHandler(e) {
         downPressed = false;
     }
 }
+
+function drawCharacter() {
+    ctx.fillRect(canvas.width/2, canvas.height/2, 25, 50);
+}
+
+drawCharacter();
 
 
 
