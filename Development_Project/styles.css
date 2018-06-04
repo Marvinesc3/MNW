@@ -1,6 +1,6 @@
 canvas {
-    border: 1px solid blue;
-    background-color: azure;
+    background: azure;
+    background: linear-gradient(to bottom right, cornflowerblue, lightsteelblue);
 }
 
 body {

@@ -1,4 +1,5 @@
-canvas = document.querySelector('canvas');
+var canvas = document.querySelector('canvas');
+var img = document.getElementById("ship");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -38,7 +39,9 @@ function keyUpHandler(e) {
 }
 
 function drawCharacter() {
-    ctx.fillRect(canvas.width/2, canvas.height/2, 25, 50);
+    var x = Math.random() * (canvas.width - 100 * 2) + 100;
+    var y = Math.random() * (canvas.height - 200 * 2) + 200;
+    ctx.drawImage(img, x, y, 100, 200);
 }
 
 drawCharacter();
