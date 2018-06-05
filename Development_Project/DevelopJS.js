@@ -80,6 +80,7 @@ function Draw_Bullets() {
     drawCharacter();
 }
 
+
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
 // FIRST X THEN Y
@@ -104,7 +105,13 @@ function Make_Bullets() {
     }
 }
 
-setInterval(Make_Bullets,10);
+function showCoords(event) {
+    var x1 = event.clientX;
+    var y1 = event.clientY;
+    var coords = "X coords: " + x1 + ", Y coords: " + y1;
+    document.getElementById("demo").innerHTML = coords;
+}
 
+setInterval(Make_Bullets,10);
 
 
