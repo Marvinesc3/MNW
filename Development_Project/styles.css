@@ -2,6 +2,7 @@
 canvas {
     background: azure;
     background: linear-gradient(lightblue, lightcyan, lightsteelblue);
+    cursor:crosshair;
 }
 
 body {
