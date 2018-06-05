@@ -46,13 +46,12 @@ function keyUpHandler(e) {
         spacebarPressed = false;
         }
 }
-var bx = canvas.width/2;
-var by = canvas.height/2;
 
 var speedlist =[];
 var arclist = [];
 var xPoslist = [];
 var yPoslist = [];
+
 function Bullet(xPos, yPos,speed,arc) {
     speedlist.push(speed);
     arclist.push(arc);
@@ -62,6 +61,12 @@ function Bullet(xPos, yPos,speed,arc) {
 }
 setInterval(Draw_Bullets,10);
 
+function drawCharacter() {
+    ctx.drawImage(img, x, y, 100, 200);
+}
+
+var x = Math.random() * (canvas.width - 100 * 2) + 100;
+var y = Math.random() * (canvas.height - 200 * 2) + 200;
 function Draw_Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -76,10 +81,9 @@ function Draw_Bullets() {
     }
     ctx.fillText(d.getTime()+" ", 50 ,100);
     ctx.beginPath();
-    ctx.fillStyle = "black";
-    ctx.fillRect(canvas.width*5/11,canvas.height*5/11, canvas.width/11, canvas.height/11)
-
+    drawCharacter();
 }
+
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
 // FIRST X THEN Y
@@ -102,5 +106,7 @@ function Make_Bullets() {
         shot = d.getTime();
     }
 }
+
 setInterval(Make_Bullets,10);
+
 

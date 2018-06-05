@@ -1,6 +1,8 @@
+
 canvas {
     background: azure;
     background: linear-gradient(to bottom right, cornflowerblue, lightsteelblue);
+    cursor: url(steering_wheel.cur), default;
 }
 
 body {
@@ -8,3 +10,7 @@ body {
     overflow: hidden;
 }
 
+#ship {
+    width:100%;
+    height: auto;
+}
