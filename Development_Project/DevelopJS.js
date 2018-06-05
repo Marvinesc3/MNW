@@ -123,7 +123,7 @@ function drawCharacter() {
         }
     }
     if (downPressed) {
-        if (y < canvas.height - 50) {
+        if (y < canvas.height - 210) {
             y += 1;
             ctx.clearRect(x, y, 100, 200);
             ctx.drawImage(ship, x, y, 100, 200);
