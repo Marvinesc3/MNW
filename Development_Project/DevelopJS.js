@@ -10,6 +10,10 @@ var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
+var spacebarPressed = false;
+var radius = 10;
+
+
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -24,6 +28,9 @@ function keyDownHandler(e) {
     } else if (e.keyCode === 83 || e.keyCode === 40) {
         downPressed = true;
     }
+    else if (e.keyCode === 32) {
+        spacebarPressed = true;
+    }
 }
 
 function keyUpHandler(e) {
@@ -35,16 +42,40 @@ function keyUpHandler(e) {
         upPressed = false;
     } else if (e.keyCode === 83 || e.keyCode === 40) {
         downPressed = false;
+    } else if (e.keyCode === 32) {
+        spacebarPressed = false;
+        }
+}
+var bx = canvas.width/2;
+var by = canvas.height/2;
+
+var speedlist =[];
+var xarclist = [];
+var yarclist = [];
+var xPoslist = [];
+var yPoslist = [];
+function Bullet(xPos, yPos,speed, xarc, yarc) {
+    speedlist.push(speed);
+    xarclist.push(xarc);
+    yarclist.push(yarc);
+    xPoslist.push(xPos);
+    yPoslist.push(yPos);
+}
+setInterval(Bullets,10);
+
+function Bullets() {
+    var listPos;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    for(listPos = 0; listPos< xPoslist.length; listPos++) {
+
+        ctx.beginPath();
+        ctx.arc(xPoslist[listPos], yPoslist[listPos], radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = 'green';
+        ctx.fill();
+
+        xPoslist[listPos] += xarclist[listPos] * speedlist[listPos];
+        yPoslist[listPos] += yarclist[listPos] * speedlist[listPos];
     }
+
 }
-
-function drawCharacter() {
-    var x = Math.random() * (canvas.width - 100 * 2) + 100;
-    var y = Math.random() * (canvas.height - 200 * 2) + 200;
-    ctx.drawImage(img, x, y, 100, 200);
-}
-
-drawCharacter();
-
-
 
