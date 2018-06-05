@@ -12,7 +12,6 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 var spacebarPressed = false;
-var radius = 10;
 
 
 
@@ -106,5 +105,6 @@ function Make_Bullets() {
 }
 
 setInterval(Make_Bullets,10);
+
 
 
