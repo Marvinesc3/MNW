@@ -1,5 +1,6 @@
 var canvas = document.querySelector('canvas');
-var img = document.getElementById("ship");
+var ship = document.getElementById("ship");
+var cannon = document.getElementById('cannon');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -62,7 +63,8 @@ function Bullet(xPos, yPos,speed,arc) {
 setInterval(Draw_Bullets,10);
 
 function drawCharacter() {
-    ctx.drawImage(img, x, y, 100, 200);
+
+    ctx.drawImage(ship, x, y, 100, 200);
 }
 
 var x = Math.random() * (canvas.width - 100 * 2) + 100;
@@ -71,11 +73,7 @@ function Draw_Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(listPos = 0; listPos< xPoslist.length; listPos++) {
-        ctx.beginPath();
-        ctx.arc(xPoslist[listPos], yPoslist[listPos], radius, 0, 2 * Math.PI, false);
-        ctx.fillStyle = 'green';
-        ctx.fill();
-
+        ctx.drawImage(cannon, xPoslist[listPos], yPoslist[listPos], 20, 20);
         yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
         xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
     }
