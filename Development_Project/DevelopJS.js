@@ -13,6 +13,8 @@ var upPressed = false;
 var downPressed = false;
 var spacebarPressed = false;
 
+
+
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -60,6 +62,7 @@ function Bullet(xPos, yPos,speed,arc) {
 setInterval(Draw_Bullets,10);
 
 function drawCharacter() {
+
     ctx.drawImage(ship, x, y, 100, 200);
 }
 
@@ -75,6 +78,7 @@ function Draw_Bullets() {
     }
     ctx.fillText(d.getTime()+" ", 50 ,100);
     ctx.beginPath();
+    drawCharacter();
 }
 
 
@@ -89,7 +93,32 @@ function Draw_Bullets() {
 for (i = 30; i<=360; i+=30){
 // Bullet(canvas.width/2,canvas.height/2, 1,i);
 }
-Bullet(canvas.width/2,canvas.height/2, 1,120);
+
+var x1 = 0;
+var y1 = 0;
+
+var rad1 = 90;
+var rad2 = 90;
+var arc1 = 90;
+var arc2 = 90;
+
+
+function showCoords(event) {
+    x1 = event.clientX;
+    y1 = event.clientY;
+    rad1 = Math.atan((-1*(y1-canvas.height/2))/(x1-canvas.width/2));
+    arc1 = rad1 * 180 / Math.PI;
+    if (x1 < canvas.width/2)
+        arc1 += 180;
+    rad2 = Math.atan((-1*(y1 - y))/(x1-x+40));
+    arc2 = rad2 * 180 / Math.PI;
+    if (x1 < x+40)
+        arc2 += 180;
+    var coords = "X coords: " + x1 + ", Y coords: " + y1 + ", Rad: " + rad1 + ", Arc: " + arc1 + ", Arc2: " + arc2;
+    document.getElementById("demo").innerHTML = coords;
+
+}
+
 var attack_speed = 1000;
 var d = new Date();
 var shot = d.getTime();
@@ -99,7 +128,8 @@ d = new Date();
 function Make_Bullets() {
     d = new Date();
     if(spacebarPressed && shot +attack_speed< d.getTime()){
-        Bullet(x+40,y, 1,90);
+        Bullet(canvas.width/2,canvas.height/2, 1,arc1);
+        Bullet(x+40,y, 1,arc2);
         d = new Date();
         shot = d.getTime();
     }
@@ -110,6 +140,8 @@ function drawCharacter() {
     if (rightPressed) {
         rotation -= 15;
     }
+
+
 
     if (leftPressed) {
         rotation += 15;
