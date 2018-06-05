@@ -98,7 +98,7 @@ var shot = d.getTime();
 d = new Date();
 function Make_Bullets() {
     d = new Date();
-    if(spacebarPressed ){
+    if(spacebarPressed && shot +attack_speed< d.getTime()){
         Bullet(canvas.width/2,canvas.height/2, 1,90);
         d = new Date();
         shot = d.getTime();
