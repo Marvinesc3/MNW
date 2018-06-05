@@ -51,7 +51,6 @@ var by = canvas.height/2;
 
 var speedlist =[];
 var arclist = [];
-
 var xPoslist = [];
 var yPoslist = [];
 function Bullet(xPos, yPos,speed,arc) {
@@ -76,7 +75,9 @@ function Draw_Bullets() {
         xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
     }
     ctx.fillText(d.getTime()+" ", 50 ,100);
-
+    ctx.beginPath();
+    ctx.fillStyle = "black";
+    ctx.fillRect(canvas.width*5/11,canvas.height*5/11, canvas.width/11, canvas.height/11)
 
 }
 // LOOK AT THIS
@@ -86,15 +87,16 @@ function Draw_Bullets() {
 // THEN THE ANGLE U WANT IT TO GO
 // LIKE 30 OR 90 OR 250
 for (i = 30; i<=360; i+=30){
-Bullet(canvas.width/2,canvas.height/2, 1,i);
+// Bullet(canvas.width/2,canvas.height/2, 1,i);
 }
+Bullet(canvas.width/2,canvas.height/2, 1,120);
 var attack_speed = 1000;
 var d = new Date();
 var shot = d.getTime();
 d = new Date();
 function Make_Bullets() {
     d = new Date();
-    if(spacebarPressed && shot+attack_speed<=d.getTime() ){
+    if(spacebarPressed ){
         Bullet(canvas.width/2,canvas.height/2, 1,90);
         d = new Date();
         shot = d.getTime();
