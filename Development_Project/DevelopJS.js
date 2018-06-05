@@ -13,8 +13,6 @@ var upPressed = false;
 var downPressed = false;
 var spacebarPressed = false;
 
-
-
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -61,10 +59,6 @@ function Bullet(xPos, yPos,speed,arc) {
 }
 setInterval(Draw_Bullets,10);
 
-function drawCharacter() {
-
-    ctx.drawImage(ship, x, y, 100, 200);
-}
 
 var x = Math.random() * (canvas.width - 100 * 2) + 100;
 var y = Math.random() * (canvas.height - 200 * 2) + 200;
@@ -78,7 +72,6 @@ function Draw_Bullets() {
     }
     ctx.fillText(d.getTime()+" ", 50 ,100);
     ctx.beginPath();
-    drawCharacter();
 }
 
 // LOOK AT THIS
@@ -94,17 +87,53 @@ Bullet(canvas.width/2,canvas.height/2, 1,120);
 var attack_speed = 1000;
 var d = new Date();
 var shot = d.getTime();
+var rotateDir = 0;
+var rotation = 0;
 d = new Date();
 function Make_Bullets() {
     d = new Date();
     if(spacebarPressed && shot +attack_speed< d.getTime()){
-        Bullet(canvas.width/2,canvas.height/2, 1,90);
+        Bullet(x+40,y, 1,90);
         d = new Date();
         shot = d.getTime();
     }
 }
+function drawCharacter() {
+    ctx.drawImage(ship, x, y, 100, 200);
 
-setInterval(Make_Bullets,10);
+    if (rightPressed) {
+        rotation -= 15;
+    }
+
+    if (leftPressed) {
+        rotation += 15;
+    }
+
+    if (upPressed) {
+        if (y >0) {
+            y -= 1;
+            ctx.clearRect(x, y, 100, 200);
+            ctx.drawImage(ship, x, y, 100, 200);
+        }
+    }
+    if (downPressed) {
+        if (y < canvas.height - 50) {
+            y += 1;
+            ctx.clearRect(x, y, 100, 200);
+            ctx.drawImage(ship, x, y, 100, 200);
+        }
+    }
+}
+
+
+function drawGame() {
+    drawCharacter();
+    Make_Bullets();
+
+
+}
+
+setInterval(drawGame, 10);
 
 
 
