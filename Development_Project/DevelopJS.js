@@ -81,6 +81,7 @@ function Draw_Bullets() {
     drawCharacter();
 }
 
+
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
 // FIRST X THEN Y
