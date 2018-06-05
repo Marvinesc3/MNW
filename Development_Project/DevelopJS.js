@@ -67,7 +67,6 @@ function Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(listPos = 0; listPos< xPoslist.length; listPos++) {
-
         ctx.beginPath();
         ctx.arc(xPoslist[listPos], yPoslist[listPos], radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
@@ -78,4 +77,7 @@ function Bullets() {
     }
 
 }
+Bullet(100, 50, 1, 1,1);
+Bullet(150, 350, 2, 1,0);
+
 
