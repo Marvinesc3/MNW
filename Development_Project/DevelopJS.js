@@ -50,20 +50,20 @@ var bx = canvas.width/2;
 var by = canvas.height/2;
 
 var speedlist =[];
-var xarclist = [];
-var yarclist = [];
+var arclist = [];
+
 var xPoslist = [];
 var yPoslist = [];
-function Bullet(xPos, yPos,speed, xarc, yarc) {
+function Bullet(xPos, yPos,speed,arc) {
     speedlist.push(speed);
-    xarclist.push(xarc);
-    yarclist.push(yarc);
+    arclist.push(arc);
+
     xPoslist.push(xPos);
     yPoslist.push(yPos);
 }
-setInterval(Bullets,10);
+setInterval(Draw_Bullets,10);
 
-function Bullets() {
+function Draw_Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
     for(listPos = 0; listPos< xPoslist.length; listPos++) {
@@ -72,12 +72,33 @@ function Bullets() {
         ctx.fillStyle = 'green';
         ctx.fill();
 
-        xPoslist[listPos] += xarclist[listPos] * speedlist[listPos];
-        yPoslist[listPos] += yarclist[listPos] * speedlist[listPos];
+        yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
+        xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
     }
+    ctx.fillText(d.getTime()+" ", 50 ,100);
+
 
 }
-Bullet(100, 50, 1, 1,1);
-Bullet(150, 350, 2, 1,0);
-
+// LOOK AT THIS
+// THIS IS HOW TO CODE BULLETS
+// FIRST X THEN Y
+// THEN THE SPEED
+// THEN THE ANGLE U WANT IT TO GO
+// LIKE 30 OR 90 OR 250
+for (i = 30; i<=360; i+=30){
+Bullet(canvas.width/2,canvas.height/2, 1,i);
+}
+var attack_speed = 1000;
+var d = new Date();
+var shot = d.getTime();
+d = new Date();
+function Make_Bullets() {
+    d = new Date();
+    if(spacebarPressed && shot+attack_speed<=d.getTime() ){
+        Bullet(canvas.width/2,canvas.height/2, 1,90);
+        d = new Date();
+        shot = d.getTime();
+    }
+}
+setInterval(Make_Bullets,10);
 
