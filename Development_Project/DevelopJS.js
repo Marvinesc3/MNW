@@ -59,6 +59,9 @@ function Bullet(xPos, yPos,speed,arc) {
 }
 setInterval(Draw_Bullets,10);
 
+function drawCharacter() {
+    ctx.drawImage(ship, x, y, 100, 200);
+}
 
 var x = Math.random() * (canvas.width - 100 * 2) + 100;
 var y = Math.random() * (canvas.height - 200 * 2) + 200;
@@ -74,12 +77,14 @@ function Draw_Bullets() {
     ctx.beginPath();
 }
 
+
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
 // FIRST X THEN Y
 // THEN THE SPEED
 // THEN THE ANGLE U WANT IT TO GO
 // LIKE 30 OR 90 OR 250
+
 for (i = 30; i<=360; i+=30){
 // Bullet(canvas.width/2,canvas.height/2, 1,i);
 }
@@ -134,6 +139,5 @@ function drawGame() {
 }
 
 setInterval(drawGame, 10);
-
 
 
