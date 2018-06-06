@@ -125,19 +125,29 @@ function showCoords(event) {
 
 }
 
-var attack_speed = 1000;
+var attack_speed = 500;
 var d = new Date();
 var shot = d.getTime();
 var rotateDir = 0;
 var rotation = 0;
 d = new Date();
-function Make_Bullets(trueOrFalse) {
+function Make_Bullets() {
     d = new Date();
-    if(trueOrFalse === true && shot +attack_speed< d.getTime()){
+    if(mousePos === true && shot +attack_speed< d.getTime()){
         Bullet(x+40,y+100, 3,arc2);
         d = new Date();
         shot = d.getTime();
-        trueOrFalse = false;
+
+    }
+}
+function MouseDown(TorF) {
+    if(TorF){
+        mousePos = true;
+    }
+}
+function MouseUp(TorF) {
+    if(TorF){
+        mousePos = false;
     }
 }
 function drawCharacter() {
