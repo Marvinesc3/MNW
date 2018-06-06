@@ -105,7 +105,7 @@ function showCoords(event) {
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
         arc1 += 180;
-    rad2 = Math.atan((-1*(y1 - (y+100)))/(x1-x+40));
+    rad2 = Math.atan((-1*(y1 - (y+100)))/(x1-(x+40)));
     arc2 = rad2 * 180 / Math.PI;
     if (x1 < x+40)
         arc2 += 180;
