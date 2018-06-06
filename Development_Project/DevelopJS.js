@@ -105,12 +105,10 @@ function showCoords(event) {
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
         arc1 += 180;
-    rad2 = Math.atan((-1*(y1 - y))/(x1-x+40));
+    rad2 = Math.atan((-1*(y1 - (y+100)))/(x1-x+40));
     arc2 = rad2 * 180 / Math.PI;
     if (x1 < x+40)
         arc2 += 180;
-    var coords = "X coords: " + x1 + ", Y coords: " + y1 + ", Rad: " + rad1 + ", Arc: " + arc1 + ", Arc2: " + arc2;
-    document.getElementById("demo").innerHTML = coords;
 
 }
 
@@ -123,8 +121,7 @@ d = new Date();
 function Make_Bullets() {
     d = new Date();
     if(spacebarPressed && shot +attack_speed< d.getTime()){
-        Bullet(canvas.width/2,canvas.height/2, 1,arc1);
-        Bullet(x+40,y, 1,arc2);
+        Bullet(x+40,y+100, 3,arc2);
         d = new Date();
         shot = d.getTime();
     }
