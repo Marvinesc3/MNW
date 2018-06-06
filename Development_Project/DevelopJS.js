@@ -18,6 +18,18 @@ var spacebarPressed = false;
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
+mouse = {
+    x:undefined,
+    y:undefined
+};
+
+window.addEventListener('mousemove',
+    function(event){
+        mouse.x = event.x;
+        mouse.y = event.y;
+        console.log(mouse);
+    });
+
 function keyDownHandler(e) {
     if (e.keyCode === 68 || e.keyCode === 39) {
         rightPressed = true;
