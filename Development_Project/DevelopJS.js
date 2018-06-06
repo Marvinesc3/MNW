@@ -133,7 +133,7 @@ var rotation = 0;
 d = new Date();
 function Make_Bullets() {
     d = new Date();
-    if(spacebarPressed && shot +attack_speed< d.getTime()){
+    if(shot +attack_speed< d.getTime()){
         Bullet(x+40,y+100, 3,arc2);
         d = new Date();
         shot = d.getTime();
