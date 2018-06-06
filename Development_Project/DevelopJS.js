@@ -131,12 +131,13 @@ var shot = d.getTime();
 var rotateDir = 0;
 var rotation = 0;
 d = new Date();
-function Make_Bullets() {
+function Make_Bullets(trueOrFalse) {
     d = new Date();
-    if(shot +attack_speed< d.getTime()){
+    if(trueOrFalse === true && shot +attack_speed< d.getTime()){
         Bullet(x+40,y+100, 3,arc2);
         d = new Date();
         shot = d.getTime();
+        trueOrFalse = false;
     }
 }
 function drawCharacter() {
