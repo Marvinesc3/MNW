@@ -61,11 +61,6 @@ function Bullet(xPos, yPos,speed,arc) {
 }
 setInterval(Draw_Bullets,10);
 
-function drawCharacter() {
-
-    ctx.drawImage(ship, x, y, 100, 200);
-}
-
 var x = Math.random() * (canvas.width - 100 * 2) + 100;
 var y = Math.random() * (canvas.height - 200 * 2) + 200;
 function Draw_Bullets() {
@@ -172,5 +167,4 @@ function drawGame() {
 }
 
 setInterval(drawGame, 10);
-
 
