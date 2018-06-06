@@ -75,6 +75,7 @@ setInterval(Draw_Bullets,10);
 
 var x = Math.random() * (canvas.width - 100 * 2) + 100;
 var y = Math.random() * (canvas.height - 200 * 2) + 200;
+
 function Draw_Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -111,8 +112,8 @@ var arc2 = 90;
 
 
 function showCoords(event) {
-    x1 = event.clientX;
-    y1 = event.clientY;
+    x1 = mouse.x;
+    y1 = mouse.y;
     rad1 = Math.atan((-1*(y1-canvas.height/2))/(x1-canvas.width/2));
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
