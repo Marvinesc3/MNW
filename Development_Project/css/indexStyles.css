@@ -48,11 +48,21 @@ body, html {
     src: url("../css/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../css/webfonts/fa-brands-400.woff2") format("woff2"), url("../css/webfonts/fa-brands-400.woff") format("woff"), url("../css/webfonts/fa-brands-400.ttf") format("truetype"), url("../css/webfonts/fa-brands-400.svg#fontawesome") format("svg");
 }
 
+@font-face {
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../css/webfonts/fa-regular-400.eot");
+    src: url("../css/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../css/webfonts/fa-regular-400.woff2") format("woff2"), url("../css/webfonts/fa-regular-400.woff") format("woff"), url("../css/webfonts/fa-regular-400.ttf") format("truetype"), url("../css/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+}
+
+
 h1{
-    font-family: "Font Awesome 5 Brands", "Arial Rounded MT Bold", Helvetica;
+    font-family: "Font Awesome 5 Free", "Arial Rounded MT Bold", Helvetica;
 }
 
 #playButton{
     position: absolute;
     top: 75%;
 }
+

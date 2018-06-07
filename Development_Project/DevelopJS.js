@@ -98,11 +98,6 @@ function Draw_Bullets() {
 // THEN THE ANGLE U WANT IT TO GO
 // LIKE 30 OR 90 OR 250
 
-
-for (i = 30; i<=360; i+=30){
-// Bullet(canvas.width/2,canvas.height/2, 1,i);
-}
-
 var x1 = 0;
 var y1 = 0;
 
@@ -129,8 +124,6 @@ function showCoords(event) {
 var attack_speed = 500;
 var d = new Date();
 var shot = d.getTime();
-var rotateDir = 0;
-var rotation = 0;
 d = new Date();
 function Make_Bullets() {
     d = new Date();
@@ -187,15 +180,6 @@ function drawCharacter() {
     is_pyke_dead();
     if (repaint_pyke === true) {
         ctx.drawImage(pyke, pyke_x, pyke_y, 50, 50);
-    }
-    if (rightPressed) {
-        rotation -= 15;
-    }
-
-
-
-    if (leftPressed) {
-        rotation += 15;
     }
 
     if (upPressed) {
