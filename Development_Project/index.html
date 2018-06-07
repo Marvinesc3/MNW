@@ -3,16 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <title>End of Year Project - Comp Sci</title>
-    <link rel="stylesheet" href="indexStyles.css">
+    <link rel="stylesheet" href="css/indexStyles.css">
+    <link href="/Development_Project/css/fontawesome-all.css" rel="stylesheet">
+    <style>
+        #animation {
+            position: absolute;
+            left: 50%;
+            top: 25%;
+            z-index: 1;
+            margin: -75px 0 0 -75px;
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #74ffd3;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% {transform: rotate(0deg)}
+            100% {transform: rotate(360deg)}
+        }
+
+        .loadedImg {
+            position: relative;
+            -webkit-animation-name: animatebottom;
+            -webkit-animation-duration: 1s;
+            animation-name: animatebottom;
+            animation-duration: 1s;
+        }
+
+
+        @-webkit-keyframes animatebottom {
+            from { bottom:-100px; opacity:0 }
+            to { bottom:0; opacity:1 }
+        }
+
+        @keyframes animatebottom {
+            from{ bottom:-100px; opacity:0 }
+            to{ bottom:0; opacity:1 }
+        }
+    </style>
 </head>
-<body>
-<div class="animation"></div>
-<div class = "containerImage"></div>
+<body onload="timeFunction()">
+<div id="animation"></div>
+
+<div id = "boatImg" class = "loadedImg" style = "
+    background-image: url(https://static.zerochan.net/Pixiv.Id.454919.full.1689828.jpg);
+    height:50%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    display: none;
+
+"></div>
 
 <div id = "title">
     <center><h1>boats.io</h1></center>
 </div>
-<input type="button" onclick="location.href='game.html'" value="Play"/>
+<center><input type="button" id = "playButton" onclick="location.href='game.html'" value="Set Sail"/></center>
+<script>
+    var holder;
+    function timeFunction(){
+        holder = setTimeout(showContent, 1000);
+    }
+    function showContent(){
+        document.getElementById("animation").style.display = "none";
+        document.getElementById("boatImg").style.display = "block";
+    }
+</script>
 </body>
-
 </html>

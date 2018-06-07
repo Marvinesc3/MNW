@@ -37,33 +37,22 @@ table {
 
 body, html {
     height: 100%;
+    background-color: lightcyan;
 }
 
-.containerImage {
-    background-image: url(https://static.zerochan.net/Pixiv.Id.454919.full.1689828.jpg);
-    height:50%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+@font-face {
+    font-family: 'Font Awesome 5 Brands';
+    font-style: normal;
+    font-weight: normal;
+    src: url("../css/webfonts/fa-brands-400.eot");
+    src: url("../css/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("../css/webfonts/fa-brands-400.woff2") format("woff2"), url("../css/webfonts/fa-brands-400.woff") format("woff"), url("../css/webfonts/fa-brands-400.ttf") format("truetype"), url("../css/webfonts/fa-brands-400.svg#fontawesome") format("svg");
 }
-.animation {
+
+h1{
+    font-family: "Font Awesome 5 Brands", "Arial Rounded MT Bold", Helvetica;
+}
+
+#playButton{
     position: absolute;
-    left: 50%;
-    top: 50%;
-    z-index: 1;
-    width: 150px;
-    height: 150px;
-    margin: -75px 0 0 -75px;
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid rgba(186, 243, 53, 0.45);
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite;
-    animation: spin 2s linear infinite;
-}
-
-@keyframes spin {
-    0% {transform: rotate(0deg)}
-    100% {transform: rotate(360deg)}
+    top: 75%;
 }
