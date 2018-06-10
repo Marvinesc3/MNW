@@ -1,5 +1,4 @@
 var canvas = document.querySelector('canvas');
-var ship = document.getElementById("ship");
 var cannon = document.getElementById('cannon');
 var pyke = document.getElementById('pyke');
 
@@ -28,7 +27,6 @@ window.addEventListener('mousemove',
     function(event){
         mouse.x = event.x;
         mouse.y = event.y;
-        console.log(mouse);
     });
 
 function keyDownHandler(e) {
@@ -74,9 +72,6 @@ function Bullet(xPos, yPos,speed,arc) {
 }
 setInterval(Draw_Bullets,10);
 
-var x = Math.random() * (canvas.width - 100 * 2) + 100;
-var y = Math.random() * (canvas.height - 200 * 2) + 200;
-
 function Draw_Bullets() {
     var listPos;
     ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -90,6 +85,96 @@ function Draw_Bullets() {
     drawCharacter();
 }
 
+
+
+var player = {
+    x: Math.random() * (canvas.width - 100 * 2) + 100,
+    y: Math.random() * (canvas.height - 200 * 2) + 200,
+    image: document.getElementById("ship"),
+    rotation: 0,
+    speed: 2,
+    width: 100,
+    height: 200,
+    health: 100,
+    rotator: function() {
+        //Convert degrees to radian
+        var rad = this.rotation * Math.PI / 180;
+        ctx.clearRect(this.x, this.y, this.width, this.height);
+        //Set the origin to the center of the image
+        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+
+        //Rotate the canvas around the origin
+        ctx.rotate(rad);
+
+        //draw the image
+        ctx.drawImage(this.image,this.width / 2 * (-1),this.height / 2 * (-1),this.width,this.height);
+
+        //reset the canvas
+        ctx.rotate(rad * ( -1 ) );
+        ctx.translate((this.x + this.width / 2) * (-1), (this.y + this.height / 2) * (-1));
+    },
+    move: function() {
+        if (upPressed) {
+            if (this.y - this.speed * Math.sin((this.rotation+90) * Math.PI / 180) > 0 && this.x - this.speed * Math.cos((this.rotation+90) * Math.PI / 180) > 0) {
+                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+            else {
+                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+        }
+        if (downPressed) {
+            if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< canvas.height && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < canvas.width) {
+                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+            else {
+                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+        }
+        if (rightPressed) {
+            this.rotation++;
+        }
+        if (leftPressed) {
+            this.rotation--;
+        }
+    },
+    update: function() {
+        ctx.clearRect(10, 10, player.width, player.height);
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+        this.rotator();
+    }
+};
+
+var enemyArray = [];
+var enemy = {
+    x: Math.random() * (canvas.width - 100 * 2) + 100,
+    y: Math.random() * (canvas.height - 200 * 2) + 200,
+    width: 20,
+    height: 20,
+    image: document.getElementById("pyke"),
+    speed: 15,
+    move: function() {
+        ctx.clearRect(this.x, this.y, this.width, this.height);
+        this.x += (player.x - this.x)/this.speed;
+        this.y += (player.y - this.y)/this.speed;
+        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+    },
+    addToArray: function() {
+        enemyArray.push(enemy);
+    },
+    update: function(){}
+};
+
+
+
+function drawHealthBar() {
+    ctx.clearRect(0, 0, player.health, 25);
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(10, 10, player.health, 25);
+}
 
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
@@ -114,23 +199,23 @@ function showCoords(event) {
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
         arc1 += 180;
-    rad2 = Math.atan((-1*(y1 - (y+100)))/(x1-(x+40)));
+    rad2 = Math.atan((-1*(y1 - (player.y+player.height/2)))/(x1-(player.x+player.width/2)));
     arc2 = rad2 * 180 / Math.PI;
-    if (x1 < x+40)
+    if (x1 < player.x+player.width/2)
         arc2 += 180;
 
 }
-
+var mousePos = false;
 var attack_speed = 500;
 var d = new Date();
 var shot = d.getTime();
 d = new Date();
 function Make_Bullets() {
     d = new Date();
-    if(mousePos === true && shot +attack_speed< d.getTime()){
-        Bullet(x+40,y+100, 3,arc2);
+    if(mousePos === true && shot + attack_speed< d.getTime()){
+        Bullet(player.x+player.width/2,player.y+player.height/2, 3,arc2);
         arc3 = 180 -arc2;
-        Bullet(x+40,y+100, 3,arc3);
+        Bullet(player.x+player.width/2,player.y+player.height/2, 3,arc3);
         d = new Date();
         shot = d.getTime();
 
@@ -162,18 +247,18 @@ function is_pyke_dead() {
 }
 
 function drawCharacter() {
-    ctx.drawImage(ship, x, y, 100, 200);
+    player.update();
     if (repaint_pyke === true) {
-        if (x - pyke_x > 0) {
+        if (player.x - pyke_x > 0) {
             pyke_x += .3;
         }
-        if (x - pyke_x < 0) {
+        if (player.x - pyke_x < 0) {
             pyke_x -= .3;
         }
-        if ((y + 100) - pyke_y > 0) {
+        if ((player.y + player.width) - pyke_y > 0) {
             pyke_y += .3;
         }
-        if ((y + 100) - pyke_y < 0) {
+        if ((player.y + player.height) - pyke_y < 0) {
             pyke_y -= .3;
         }
     }
@@ -181,28 +266,14 @@ function drawCharacter() {
     if (repaint_pyke === true) {
         ctx.drawImage(pyke, pyke_x, pyke_y, 50, 50);
     }
-
-    if (upPressed) {
-        if (y >0) {
-            y -= 1;
-            ctx.clearRect(x, y, 100, 200);
-            ctx.drawImage(ship, x, y, 100, 200);
-        }
-    }
-    if (downPressed) {
-        if (y < canvas.height - 210) {
-            y += 1;
-            ctx.clearRect(x, y, 100, 200);
-            ctx.drawImage(ship, x, y, 100, 200);
-        }
-    }
 }
 
 
 function drawGame() {
     drawCharacter();
+    player.move();
     Make_Bullets();
-
+    drawHealthBar();
 
 }
 
