@@ -153,7 +153,7 @@ var enemyArray = [];
 function Enemy() {
     this.x = Math.random() * (canvas.width - 100 * 2) + 100;
     this.y = Math.random() * (canvas.height - 200 * 2) + 200;
-    this.width = 50; this.height=50; this.speed = 300;
+    this.width = 50; this.height=50; this.speed = 500;
     this.image = document.getElementById("pyke");
     this.move = function() {
         ctx.clearRect(this.x, this.y, this.width, this.height);
