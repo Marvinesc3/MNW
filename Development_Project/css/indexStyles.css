@@ -31,8 +31,9 @@ table {
 
 #title {
     font-size: 6em;
-    letter-spacing: 20px;
+    letter-spacing: 50px;
     text-transform: uppercase;
+    font-family: "Font Awesome 5 Free", "Arial Rounded MT Bold", Helvetica;
 }
 
 body, html {
@@ -56,13 +57,10 @@ body, html {
     src: url("../css/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../css/webfonts/fa-regular-400.woff2") format("woff2"), url("../css/webfonts/fa-regular-400.woff") format("woff"), url("../css/webfonts/fa-regular-400.ttf") format("truetype"), url("../css/webfonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 
-
-h1{
-    font-family: "Font Awesome 5 Free", "Arial Rounded MT Bold", Helvetica;
-}
-
 #playButton{
     position: absolute;
+    left: 50%;
     top: 75%;
+
 }
 

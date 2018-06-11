@@ -140,44 +140,9 @@ var player = {
     }
 };
 
-var enemyArray = [];
-
-function Enemy() {
-    this.x = Math.random() * (canvas.width - 100 * 2) + 100;
-    this.y = Math.random() * (canvas.height - 200 * 2) + 200;
-    this.width = 50; this.height=50; this.speed = 500;
-    this.image = document.getElementById("pyke");
-    this.move = function() {
-        ctx.clearRect(this.x, this.y, this.width, this.height);
-        this.x += (player.x - this.x)/this.speed;
-        this.y += (player.y - this.y)/this.speed;
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    };
-    this.addToArray = function() {
-        enemyArray.push(new Enemy);
-    };
-}
-
-function updateEnemies() {
-    for (i=0; i<enemyArray.length; i++) {
-        enemyArray[i].move();
-        for (j=0; j<xPoslist; j++) {
-            if(true/*Code the Bullet Collision with the enemy object here*/){
-                enemyArray[i].pop(x);
-            }
-        }
-    }
-}
-
 function makeNewEnemies() {
     var x = new Enemy();
     x.addToArray();
-}
-
-function drawHealthBar() {
-    ctx.clearRect(0, 0, player.health, 25);
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(10, 10, player.health, 25);
 }
 
 // LOOK AT THIS
@@ -272,6 +237,9 @@ function drawCharacter() {
     }
 }
 
+drawMap = function(){
+    ctx.drawImage()
+};
 
 function drawGame() {
     drawCharacter();
