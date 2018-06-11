@@ -80,8 +80,7 @@ function Draw_Bullets() {
         yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
         xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
     }
-    ctx.fillText(d.getTime()+" ", 50 ,100);
-    ctx.beginPath();
+
     drawCharacter();
 }
 
@@ -142,32 +141,7 @@ var player = {
 
 var enemyArray = [];
 
-function Enemy() {
-    this.x = Math.random() * (canvas.width - 100 * 2) + 100;
-    this.y = Math.random() * (canvas.height - 200 * 2) + 200;
-    this.width = 50; this.height=50; this.speed = 500;
-    this.image = document.getElementById("pyke");
-    this.move = function() {
-        ctx.clearRect(this.x, this.y, this.width, this.height);
-        this.x += (player.x - this.x)/this.speed;
-        this.y += (player.y - this.y)/this.speed;
-        ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
-    };
-    this.addToArray = function() {
-        enemyArray.push(new Enemy);
-    };
-}
 
-function updateEnemies() {
-    for (i=0; i<enemyArray.length; i++) {
-        enemyArray[i].move();
-        for (j=0; j<xPoslist; j++) {
-            if(true/*Code the Bullet Collision with the enemy object here*/){
-                enemyArray[i].pop(x);
-            }
-        }
-    }
-}
 
 function makeNewEnemies() {
     var x = new Enemy();
