@@ -97,19 +97,11 @@ var player = {
     height: 200,
     health: 100,
     rotator: function() {
-        //Convert degrees to radian
         var rad = this.rotation * Math.PI / 180;
         ctx.clearRect(this.x, this.y, this.width, this.height);
-        //Set the origin to the center of the image
         ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
-
-        //Rotate the canvas around the origin
         ctx.rotate(rad);
-
-        //draw the image
         ctx.drawImage(this.image,this.width / 2 * (-1),this.height / 2 * (-1),this.width,this.height);
-
-        //reset the canvas
         ctx.rotate(rad * ( -1 ) );
         ctx.translate((this.x + this.width / 2) * (-1), (this.y + this.height / 2) * (-1));
     },
