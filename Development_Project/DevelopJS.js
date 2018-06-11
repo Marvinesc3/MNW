@@ -139,21 +139,6 @@ var player = {
     }
 };
 
-var enemyArray = [];
-
-
-
-function makeNewEnemies() {
-    var x = new Enemy();
-    x.addToArray();
-}
-
-function drawHealthBar() {
-    ctx.clearRect(0, 0, player.health, 25);
-    ctx.fillStyle = "#FF0000";
-    ctx.fillRect(10, 10, player.health, 25);
-}
-
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
 // FIRST X THEN Y
@@ -251,8 +236,6 @@ function drawGame() {
     drawCharacter();
     player.move();
     Make_Bullets();
-    drawHealthBar();
-    updateEnemies();
     if (player.health<=0) {
         window.location.replace("deathScreen.html");
     }
@@ -260,5 +243,4 @@ function drawGame() {
 }
 
 setInterval(drawGame, 10);
-setInterval(makeNewEnemies, 5000);
 
