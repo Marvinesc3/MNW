@@ -50,3 +50,6 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+#Node modules
+/node_modules/

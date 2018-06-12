@@ -14,7 +14,6 @@ var downPressed = false;
 var spacebarPressed = false;
 
 
-
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 
@@ -133,7 +132,7 @@ var player = {
         }
     },
     update: function() {
-        ctx.clearRect(10, 10, player.width, player.height);
+        ctx.clearRect(this.x, this.y, player.width, player.height);
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         this.rotator();
     }
@@ -149,7 +148,7 @@ function makeNewEnemies() {
 }
 
 function drawHealthBar() {
-    ctx.clearRect(0, 0, player.health, 25);
+    ctx.clearRect(10, 10, player.health, 25);
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(10, 10, player.health, 25);
 }
