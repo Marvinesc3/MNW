@@ -31,7 +31,7 @@ table {
 
 canvas {
     background: azure;
-    border: 1px solid black;
+    background: linear-gradient(lightblue, lightcyan, lightsteelblue);
     cursor: crosshair;
 }
 
@@ -44,22 +44,16 @@ img {
     width:100%;
     height: auto;
     margin: 0;
-    border: 1px solid black;
 }
 
-#map{
+div #ship {
     position: absolute;
     z-index: 1;
+    border: 1px black;
+
 }
 
-#ship{
-    position: relative;
+div #cannon {
+    position: absolute;
     z-index: 2;
 }
-
-#cannon{
-    position: relative;
-    z-index: 3;
-}
-
-
