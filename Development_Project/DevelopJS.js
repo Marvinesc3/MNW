@@ -224,6 +224,14 @@ function is_pyke_dead() {
     }
 }
 
+var map = document.getElementById('map');
+function drawMap(){
+    var x = canvas.width/2 - player.x;
+    var y = canvas.height/2 - player.y;
+
+    ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+}
+
 function drawCharacter() {
     player.update();
     if (repaint_pyke === true) {
@@ -248,6 +256,8 @@ function drawCharacter() {
 
 
 function drawGame() {
+    requestAnimationFrame(drawGame);
+    drawMap();
     drawCharacter();
     player.move();
     Make_Bullets();
@@ -256,9 +266,7 @@ function drawGame() {
     if (player.health<=0) {
         window.location.replace("deathScreen.html");
     }
-
 }
 
-setInterval(drawGame, 10);
-setInterval(makeNewEnemies, 5000);
+drawGame();
 
