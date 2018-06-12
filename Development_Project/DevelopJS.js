@@ -1,5 +1,6 @@
 var canvas = document.querySelector('canvas');
 var cannon = document.getElementById('cannon');
+var map = document.getElementById('map');
 var pyke = document.getElementById('pyke');
 
 canvas.width = window.innerWidth;
@@ -12,8 +13,6 @@ var leftPressed = false;
 var upPressed = false;
 var downPressed = false;
 var spacebarPressed = false;
-
-
 
 document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
@@ -135,15 +134,21 @@ var player = {
     },
     update: function() {
         ctx.clearRect(10, 10, player.width, player.height);
+
+        var x = this.x - player.x;
+        var y = this.y - player.y;
+
+        x += canvas.width/2;
+        y += canvas.height/2;
+
+        x -= player.width/2;
+        y -= player.height/2;
+
+
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         this.rotator();
     }
 };
-
-function makeNewEnemies() {
-    var x = new Enemy();
-    x.addToArray();
-}
 
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
@@ -237,22 +242,23 @@ function drawCharacter() {
     }
 }
 
-drawMap = function(){
-    ctx.drawImage()
-};
+function drawMap(){
+    var x = canvas.width/2 - player.x;
+    var y = canvas.height/2 - player.y;
+
+    ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+}
 
 function drawGame() {
+    drawMap();
     drawCharacter();
-    player.move();
     Make_Bullets();
-    drawHealthBar();
-    updateEnemies();
+    player.move();
     if (player.health<=0) {
         window.location.replace("deathScreen.html");
     }
-
+    requestAnimationFrame(drawGame);
 }
 
-setInterval(drawGame, 10);
-setInterval(makeNewEnemies, 5000);
+drawGame();
 
