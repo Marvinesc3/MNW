@@ -95,6 +95,8 @@ function drawMap(){
 var player = {
     x: Math.random() * (canvas.width - 100 * 2) + 100,
     y: Math.random() * (canvas.height - 200 * 2) + 200,
+    dx: Math.random() * (canvas.width - 100 * 2) + 100,
+    dy: Math.random() * (canvas.height - 200 * 2) + 200,
     image: document.getElementById("ship"),
     rotation: 0,
     speed: 2,
@@ -112,7 +114,9 @@ var player = {
 
 
 
+
         ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+        ctx.drawImage(pyke,0, 0, pyke.width, pyke.height, this.dx, this.dy, pyke.width*2, pyke.height*2);
 
         for(listPos = 0; listPos< xPoslist.length; listPos++) {
             ctx.drawImage(cannon, xPoslist[listPos], yPoslist[listPos], 20, 20);
@@ -132,7 +136,9 @@ var player = {
 
         ctx.translate((canvas.width/2-50 + this.width / 2) * (-1), (canvas.height/2-100 + this.height / 2) * (-1));
         Make_Bullets();
-
+        a = this.dx-this.x;
+        ctx.fillStyle = "black";
+        ctx.fillText(this.x+" , "+this.y+"   "+ x+" , "+y+"   " +this.dx+ " , "+this.dy+"   "+a, 0 , 100);
 
 
     },
@@ -141,21 +147,30 @@ var player = {
             if (this.y - this.speed * Math.sin((this.rotation+90) * Math.PI / 180) > 0 && this.x - this.speed * Math.cos((this.rotation+90) * Math.PI / 180) > 0) {
                 this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
 
             }
             else {
                 this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
         if (downPressed) {
             if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< canvas.height && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < canvas.width) {
                 this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+
             }
             else {
                 this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
 
@@ -165,15 +180,27 @@ var player = {
         if (leftPressed) {
             this.rotation--;
         }
-        this.x1 = this.x;
-        this.y1 = this.y;
+        if(this.dx - this.x>0){
+            this.dx-=1;
+        }
+
+        if(this.dx - this.x<0){
+            this.dx+=1;
+        }
+        if(this.dy - this.y>0){
+            this.dy-=1;
+        }
+        if(this.dy - this.y<0){
+            this.dy+=1;
+        }
+
 
 
 
     },
 
     update: function() {
-
+        ctx.drawImage(pyke, this.dx, this.dy);
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         this.rotator();
 
@@ -194,6 +221,7 @@ function drawHealthBar() {
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(10, 10, player.health, 25);
 }
+
 
 // LOOK AT THIS
 // THIS IS HOW TO CODE BULLETS
