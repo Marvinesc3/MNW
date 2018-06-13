@@ -69,18 +69,17 @@ function Bullet(xPos, yPos,speed,arc) {
     xPoslist.push(xPos);
     yPoslist.push(yPos);
 }
-setInterval(Draw_Bullets,10);
 
 function Draw_Bullets() {
     var listPos;
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
+
     for(listPos = 0; listPos< xPoslist.length; listPos++) {
-        ctx.drawImage(cannon, xPoslist[listPos], yPoslist[listPos], 20, 20);
+        ctx.drawImage(pyke, xPoslist[listPos], yPoslist[listPos], 20, 20);
         yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
         xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
     }
 
-    drawCharacter();
+
 }
 
 
@@ -94,20 +93,47 @@ var player = {
     width: 100,
     height: 200,
     health: 100,
+    x1: canvas.width/2,
+    y1: canvas.height/2,
+
     rotator: function() {
+        ctx.clearRect(0,0, canvas.width,canvas.height);
+        var x = canvas.width/2 - player.x;
+        var y = canvas.height/2 - player.y;
+        var listPos;
+
+
+
+        ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+
+        for(listPos = 0; listPos< xPoslist.length; listPos++) {
+            ctx.drawImage(cannon, xPoslist[listPos], yPoslist[listPos], 20, 20);
+            yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
+            xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
+        }
+
         var rad = this.rotation * Math.PI / 180;
-        ctx.clearRect(this.x, this.y, this.width, this.height);
-        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+
+
+        ctx.translate(canvas.width/2 + this.width / 2, canvas.height/2 + this.height / 2);
+
         ctx.rotate(rad);
         ctx.drawImage(this.image,this.width / 2 * (-1),this.height / 2 * (-1),this.width,this.height);
+
         ctx.rotate(rad * ( -1 ) );
-        ctx.translate((this.x + this.width / 2) * (-1), (this.y + this.height / 2) * (-1));
+
+        ctx.translate((canvas.width/2 + this.width / 2) * (-1), (canvas.height/2 + this.height / 2) * (-1));
+        Make_Bullets();
+
+
+
     },
     move: function() {
         if (upPressed) {
             if (this.y - this.speed * Math.sin((this.rotation+90) * Math.PI / 180) > 0 && this.x - this.speed * Math.cos((this.rotation+90) * Math.PI / 180) > 0) {
                 this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+
             }
             else {
                 this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
@@ -124,17 +150,26 @@ var player = {
                 this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
+
         if (rightPressed) {
             this.rotation++;
         }
         if (leftPressed) {
             this.rotation--;
         }
+        this.x1 = this.x;
+        this.y1 = this.y;
+
+
+
+
     },
+
     update: function() {
-        ctx.clearRect(this.x, this.y, player.width, player.height);
+
         ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
         this.rotator();
+
     }
 };
 
@@ -188,11 +223,12 @@ var d = new Date();
 var shot = d.getTime();
 d = new Date();
 function Make_Bullets() {
+
     d = new Date();
     if(mousePos === true && shot + attack_speed< d.getTime()){
-        Bullet(player.x+player.width/2,player.y+player.height/2, 3,arc2);
+        Bullet(canvas.width/2,canvas.height/2, 3,arc2);
         arc3 = 180 -arc2;
-        Bullet(player.x+player.width/2,player.y+player.height/2, 3,arc3);
+        Bullet(canvas.width/2,canvas.height/2, 3,arc3);
         d = new Date();
         shot = d.getTime();
 
@@ -217,7 +253,7 @@ function is_pyke_dead() {
         if(pyke_x+50> xPoslist[i]&& pyke_x<xPoslist[i] && pyke_y+50> yPoslist[i]&& pyke_y<yPoslist[i]){
             pyke_x = Math.random() * (canvas.width - 100 * 2) + 100;
             pyke_y = Math.random() * (canvas.height - 200 * 2) + 200;
-
+            exp+=25;
 
         }
     }
@@ -229,6 +265,7 @@ function drawMap(){
     var y = canvas.height/2 - player.y;
 
     ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+
 }
 
 function drawCharacter() {
@@ -255,16 +292,18 @@ function drawCharacter() {
 
 
 function drawGame() {
+
     requestAnimationFrame(drawGame);
-    drawMap();
+    Make_Bullets();
     drawCharacter();
     player.move();
-    Make_Bullets();
+
     drawHealthBar();
     updateEnemies();
     if (player.health<=0) {
         window.location.replace("deathScreen.html");
     }
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
 drawGame();
