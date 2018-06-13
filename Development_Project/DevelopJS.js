@@ -115,14 +115,14 @@ var player = {
         var rad = this.rotation * Math.PI / 180;
 
 
-        ctx.translate(canvas.width/2 + this.width / 2, canvas.height/2 + this.height / 2);
+        ctx.translate(canvas.width/2-50 + this.width / 2, canvas.height/2-100 + this.height / 2);
 
         ctx.rotate(rad);
         ctx.drawImage(this.image,this.width / 2 * (-1),this.height / 2 * (-1),this.width,this.height);
 
         ctx.rotate(rad * ( -1 ) );
 
-        ctx.translate((canvas.width/2 + this.width / 2) * (-1), (canvas.height/2 + this.height / 2) * (-1));
+        ctx.translate((canvas.width/2-50 + this.width / 2) * (-1), (canvas.height/2-100 + this.height / 2) * (-1));
         Make_Bullets();
 
 
@@ -207,11 +207,11 @@ var arc2 = 90;
 function showCoords(event) {
     x1 = mouse.x;
     y1 = mouse.y;
-    rad1 = Math.atan((-1*(y1-canvas.height/2+100))/(x1-canvas.width/2+50));
+    rad1 = Math.atan((-1*(y1-canvas.height/2))/(x1-canvas.width/2));
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
         arc1 += 180;
-    rad2 = Math.atan((-1*(y1 - (canvas.height/2+100)))/(x1-(canvas.width/2+50)));
+    rad2 = Math.atan((-1*(y1 - (canvas.height/2)))/(x1-(canvas.width/2)));
     arc2 = rad2 * 180 / Math.PI;
     if (x1 <canvas.width/2)
         arc2 += 180;
@@ -226,9 +226,9 @@ function Make_Bullets() {
 
     d = new Date();
     if(mousePos === true && shot + attack_speed< d.getTime()){
-        Bullet(canvas.width/2+50,canvas.height/2 +100, 3,arc2);
+        Bullet(canvas.width/2,canvas.height/2, 3,arc2);
         arc3 = player.rotation+180 -arc2;
-        Bullet(canvas.width/2+50,canvas.height/2 +100, 3,arc3);
+        Bullet(canvas.width/2,canvas.height/2 , 3,arc3);
         d = new Date();
         shot = d.getTime();
 
