@@ -207,13 +207,13 @@ var arc2 = 90;
 function showCoords(event) {
     x1 = mouse.x;
     y1 = mouse.y;
-    rad1 = Math.atan((-1*(y1-canvas.height/2))/(x1-canvas.width/2));
+    rad1 = Math.atan((-1*(y1-canvas.height/2+100))/(x1-canvas.width/2+50));
     arc1 = rad1 * 180 / Math.PI;
     if (x1 < canvas.width/2)
         arc1 += 180;
-    rad2 = Math.atan((-1*(y1 - (player.y+player.height/2)))/(x1-(player.x+player.width/2)));
+    rad2 = Math.atan((-1*(y1 - (canvas.height/2+100)))/(x1-(canvas.width/2+50)));
     arc2 = rad2 * 180 / Math.PI;
-    if (x1 < player.x+player.width/2)
+    if (x1 <canvas.width/2)
         arc2 += 180;
 
 }
@@ -226,9 +226,9 @@ function Make_Bullets() {
 
     d = new Date();
     if(mousePos === true && shot + attack_speed< d.getTime()){
-        Bullet(canvas.width/2,canvas.height/2, 3,arc2);
-        arc3 = 180 -arc2;
-        Bullet(canvas.width/2,canvas.height/2, 3,arc3);
+        Bullet(canvas.width/2+50,canvas.height/2 +100, 3,arc2);
+        arc3 = player.rotation+180 -arc2;
+        Bullet(canvas.width/2+50,canvas.height/2 +100, 3,arc3);
         d = new Date();
         shot = d.getTime();
 
@@ -271,16 +271,16 @@ function drawMap(){
 function drawCharacter() {
     player.update();
     if (repaint_pyke === true) {
-        if (player.x - pyke_x > 0) {
+        if (canvas.width/2+50 - pyke_x > 0) {
             pyke_x += .3;
         }
-        if (player.x - pyke_x < 0) {
+        if (canvas.width/2+50 - pyke_x < 0) {
             pyke_x -= .3;
         }
-        if ((player.y + player.width) - pyke_y > 0) {
+        if ((canvas.height/2+50 + player.width) - pyke_y > 0) {
             pyke_y += .3;
         }
-        if ((player.y + player.height) - pyke_y < 0) {
+        if ((canvas.height/2+50 + player.height) - pyke_y < 0) {
             pyke_y -= .3;
         }
     }
