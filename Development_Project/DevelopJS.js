@@ -54,7 +54,7 @@ function keyUpHandler(e) {
         downPressed = false;
     } else if (e.keyCode === 32) {
         spacebarPressed = false;
-        }
+    }
 }
 
 var speedlist =[];
@@ -170,7 +170,6 @@ var player = {
 
 
 
-
     },
 
     update: function() {
@@ -223,6 +222,7 @@ function showCoords(event) {
     arc2 = rad2 * 180 / Math.PI;
     if (x1 <canvas.width/2)
         arc2 += 180;
+    document.getElementById("myText").innerHTML = "x: " + x1 + " y: " + y1;
 
 }
 var mousePos = false;
@@ -308,4 +308,3 @@ function drawGame() {
 }
 
 drawGame();
-
