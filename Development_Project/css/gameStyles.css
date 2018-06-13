@@ -30,8 +30,11 @@ table {
 /* end reset browser styles */
 
 canvas {
-    background: azure;
-    background: linear-gradient(lightblue, lightcyan, lightsteelblue);
+    background-image: url("https://images.pexels.com/photos/247666/pexels-photo-247666.jpeg?cs=srgb&dl=sand-art-dirty-247666.jpg&fm=jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 100%;
     cursor: crosshair;
 }
 

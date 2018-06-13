@@ -5,6 +5,8 @@
     <title>End of Year Project - Comp Sci</title>
     <link rel="stylesheet" href="css/indexStyles.css">
     <link href="/Development_Project/css/fontawesome-all.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Ubuntu" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <style>
 
         #animation {
@@ -13,9 +15,9 @@
             top: 50%;
             z-index: 1;
             margin: -75px 0 0 -75px;
-            border: 16px solid #f3f3f3;
+            border: 16px solid #000000;
             border-radius: 50%;
-            border-top: 16px solid #74ffd3;
+            border-top: 16px solid #9eff81;
             width: 120px;
             height: 120px;
             -webkit-animation: spin 2s linear infinite;
@@ -32,15 +34,7 @@
             100% {transform: rotate(360deg)}
         }
 
-        .loadedImg {
-            position: relative;
-            -webkit-animation-name: animatebottom;
-            -webkit-animation-duration: 1s;
-            animation-name: animatebottom;
-            animation-duration: 1s;
-        }
-
-        #titleHeader {
+        .loadedImg, #titleHeader, #playButton, #nameTag {
             position: relative;
             -webkit-animation-name: animatebottom;
             -webkit-animation-duration: 1s;
@@ -58,24 +52,43 @@
             to{ bottom:0; opacity:1 }
         }
 
+        body{
+            overflow: hidden;
+        }
+
     </style>
 </head>
 <body onload="timeFunction()">
 <div id="animation"></div>
-
 <div id = "boatImg" class = "loadedImg" style = "
-    background-image: url(https://static.zerochan.net/Pixiv.Id.454919.full.1689828.jpg);
+    background-image: url(http://getwallpapers.com/wallpaper/full/a/8/2/255487.jpg);
     height:50%;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
     display: none;
 "></div>
 <div id = "title">
-    <center><h1 id="titleHeader" style="display: none">boats.io</h1></center>
-<center><button id = "playButton" onclick="location.href='game.html'" style="display: none;" value="Set Sail">Set Sail</button></center>
+    <center><h1 id="titleHeader" style="display: none">XPLORE</h1></center>
+</div>
+
+<div ng-app="">
+    <center>
+        <input type = "text" id="nameTag" ng-model="nametag" placeholder="Enter your name here" style="width: 450px; height: 20px; display: none;">
+        <button id = "playButton" onclick="location.href='game.html'" style="display: none;" value="Set Sail">Set Sail {{nametag}}</button>
+    </center>
+
+</div>
+
+<audio id="myAudio">
+    <source src="horse.ogg" type="audio/ogg">
+    Your browser does not support the audio element.
+</audio>
+
 <script>
+    var x = document.getElementById("myAudio");
     var holder;
+
     function timeFunction(){
         holder = setTimeout(showContent, 1000);
     }
@@ -83,10 +96,13 @@
         document.getElementById("animation").style.display = "none";
         document.getElementById("boatImg").style.display = "block";
         document.getElementById("titleHeader").style.display = "block";
-        document.getElementById("playButton").style.display = "block";
-
+        document.getElementById("nameTag").style.display = "inline-block";
+        document.getElementById("playButton").style.display = "inline-block";
+        x.play();
 
     }
 </script>
+
+
 </body>
 </html>

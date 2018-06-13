@@ -83,6 +83,14 @@ function Draw_Bullets() {
 }
 
 
+var map = document.getElementById('map');
+function drawMap(){
+    var x = canvas.width/2 - player.x;
+    var y = canvas.height/2 - player.y;
+
+    ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+
+}
 
 var player = {
     x: Math.random() * (canvas.width - 100 * 2) + 100,
@@ -259,14 +267,7 @@ function is_pyke_dead() {
     }
 }
 
-var map = document.getElementById('map');
-function drawMap(){
-    var x = canvas.width/2 - player.x;
-    var y = canvas.height/2 - player.y;
 
-    ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
-
-}
 
 function drawCharacter() {
     player.update();

@@ -33,12 +33,15 @@ table {
     font-size: 6em;
     letter-spacing: 50px;
     text-transform: uppercase;
-    font-family: "Font Awesome 5 Free", "Arial Rounded MT Bold", Helvetica;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Acme', sans-serif;
+    color: #62d128;
+    text-shadow: 4px 4px black;
 }
 
 body, html {
     height: 100%;
-    background-color: lightcyan;
+    background-color: #e7ffe0;
 }
 
 @font-face {
@@ -57,10 +60,5 @@ body, html {
     src: url("../css/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("../css/webfonts/fa-regular-400.woff2") format("woff2"), url("../css/webfonts/fa-regular-400.woff") format("woff"), url("../css/webfonts/fa-regular-400.ttf") format("truetype"), url("../css/webfonts/fa-regular-400.svg#fontawesome") format("svg");
 }
 
-#playButton{
-    position: absolute;
-    left: 50%;
-    top: 75%;
 
-}
 
