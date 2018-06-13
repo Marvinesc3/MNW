@@ -84,20 +84,13 @@ function Draw_Bullets() {
 
 
 var map = document.getElementById('map');
-function drawMap(){
-    var x = canvas.width/2 - player.x;
-    var y = canvas.height/2 - player.y;
-
-    ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
-
-}
-
+var mapWidth = 780;
+var mapHeight = 430;
 var player = {
-    x: Math.random() * (canvas.width - 100 * 2) + 100,
-    y: Math.random() * (canvas.height - 200 * 2) + 200,
+    x: Math.random() * (mapWidth - 100 * 2) + 100,
+    y: Math.random() * (mapHeight - 200 * 2) + 200,
     dx: Math.random() * (canvas.width - 100 * 2) + 100,
     dy: Math.random() * (canvas.height - 200 * 2) + 200,
-
     image: document.getElementById("ship"),
     rotation: 0,
     speed: 2,
@@ -106,24 +99,17 @@ var player = {
     health: 100,
     x1: canvas.width/2,
     y1: canvas.height/2,
-    testnum: 0,
-
 
     rotator: function() {
         ctx.clearRect(0,0, canvas.width,canvas.height);
         var x = canvas.width/2 - player.x;
         var y = canvas.height/2 - player.y;
         var listPos;
-        this.x1 = x;
-        this.y1 = y;
-        if (this.testnum === 0){
-            this.dx +=x;
-            this.dy +=y;
-            this.testnum = 1;
-        }
 
 
-        ctx.drawImage(map, 0, 0, map.width, map.height, x, y, map.width*2, map.height*2);
+
+
+        ctx.drawImage(map, 0, 0, mapWidth, mapHeight, x, y, mapWidth*4, mapHeight*4);
         ctx.drawImage(pyke,0, 0, pyke.width, pyke.height, this.dx, this.dy, pyke.width*2, pyke.height*2);
 
         for(listPos = 0; listPos< xPoslist.length; listPos++) {
@@ -188,17 +174,17 @@ var player = {
         if (leftPressed) {
             this.rotation--;
         }
-        if(this.dx - this.x-this.x1>0){
+        if(this.dx - this.x>0){
             this.dx-=1;
         }
 
-        if(this.dx - this.x-this.x1<0){
+        if(this.dx - this.x<0){
             this.dx+=1;
         }
-        if(this.dy - this.y+this.y-100>0){
+        if(this.dy - this.y>0){
             this.dy-=1;
         }
-        if(this.dy - this.y + this.y-100<0){
+        if(this.dy - this.y<0){
             this.dy+=1;
         }
 
