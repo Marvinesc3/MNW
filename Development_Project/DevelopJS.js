@@ -70,17 +70,7 @@ function Bullet(xPos, yPos,speed,arc) {
     yPoslist.push(yPos);
 }
 
-function Draw_Bullets() {
-    var listPos;
 
-    for(listPos = 0; listPos< xPoslist.length; listPos++) {
-        ctx.drawImage(pyke, xPoslist[listPos], yPoslist[listPos], 20, 20);
-        yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
-        xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0))*speedlist[listPos];
-    }
-
-
-}
 
 
 var map = document.getElementById('map');
@@ -100,11 +90,16 @@ var player = {
     x1: canvas.width/2,
     y1: canvas.height/2,
 
+
     rotator: function() {
         ctx.clearRect(0,0, canvas.width,canvas.height);
         var x = canvas.width/2 - player.x;
         var y = canvas.height/2 - player.y;
+
         var listPos;
+        this.x1 = x;
+        this.y1 = y;
+
 
 
 
@@ -174,17 +169,17 @@ var player = {
         if (leftPressed) {
             this.rotation--;
         }
-        if(this.dx - this.x>0){
+        if(this.dx - this.x-this.x1>0){
             this.dx-=1;
         }
 
-        if(this.dx - this.x<0){
+        if(this.dx - this.x-this.x1<0){
             this.dx+=1;
         }
-        if(this.dy - this.y>0){
+        if(this.dy - this.y+this.y-100>0){
             this.dy-=1;
         }
-        if(this.dy - this.y<0){
+        if(this.dy - this.y + this.y-100<0){
             this.dy+=1;
         }
 
@@ -274,44 +269,11 @@ function MouseUp(TorF) {
         mousePos = false;
     }
 }
-pyke_x = Math.random() * (canvas.width - 100 * 2) + 100;
-pyke_y = Math.random() * (canvas.height - 200 * 2) + 200;
-repaint_pyke = true;
-function is_pyke_dead() {
-    for(i = 0; i< xPoslist.length;i++){
-
-        if(pyke_x+50> xPoslist[i]&& pyke_x<xPoslist[i] && pyke_y+50> yPoslist[i]&& pyke_y<yPoslist[i]){
-            pyke_x = Math.random() * (canvas.width - 100 * 2) + 100;
-            pyke_y = Math.random() * (canvas.height - 200 * 2) + 200;
-            exp+=25;
-
-        }
-    }
-}
 
 
 
 function drawCharacter() {
-    player.update();
-    if (repaint_pyke === true) {
-        if (canvas.width/2+50 - pyke_x > 0) {
-            pyke_x += .3;
-        }
-        if (canvas.width/2+50 - pyke_x < 0) {
-            pyke_x -= .3;
-        }
-        if ((canvas.height/2+50 + player.width) - pyke_y > 0) {
-            pyke_y += .3;
-        }
-        if ((canvas.height/2+50 + player.height) - pyke_y < 0) {
-            pyke_y -= .3;
-        }
-    }
-    is_pyke_dead();
-    if (repaint_pyke === true) {
-        ctx.drawImage(pyke, pyke_x, pyke_y, 50, 50);
-    }
-}
+    player.update();}
 
 
 function drawGame() {
