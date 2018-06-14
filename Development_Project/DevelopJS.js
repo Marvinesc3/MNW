@@ -110,12 +110,6 @@ function Create_enemy(image,x,y,speed,width,height,health,ang) {
 
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 
-    mapx = canvas.width / 2 - enemyXList[i];
-    mapy = canvas.height / 2 - enemyYList[i];
-
-
-
-    ctx.drawImage(map, 0, 0, mapWidth, mapHeight, mapx, mapy, mapWidth * 4, mapHeight * 4);
 
 
 
@@ -145,6 +139,12 @@ var enemies= {
     draw:function () {
 
         ctx.clearRect(0,0, canvas.width,canvas.height);
+        mapx = canvas.width / 2 - enemyXList[0];
+        mapy = canvas.height / 2 - enemyYList[0];
+
+
+
+        ctx.drawImage(map, 0, 0, mapWidth, mapHeight, mapx, mapy, mapWidth * 4, mapHeight * 4);
 
         for(i = 0; i<enemyXList.length; i++){
 
