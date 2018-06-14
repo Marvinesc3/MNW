@@ -79,7 +79,7 @@ var enemyImgList = [];
 var enemyAngList = [];
 
 var ship = document.getElementById('ship');
-ennemy_try1 = new Create_enemy(ship, 300,300, 2, 100,200,100,90);
+ennemy_try1 = new Create_enemy(ship, 300,300, 3, 100,200,100,90);
 
 function Create_enemy(image,x,y,speed,width,height,health,ang) {
     this.width = width;
@@ -162,7 +162,11 @@ var enemies= {
 
         for(i = 0; i <enemyYList.length;i++){
         if (upPressed) {
-            if (enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) > 0 && enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) > 0) {
+            if (enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
+                enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
+                enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) < 1730 &&
+                enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) < 3125) {
+
                 enemyXList[i] -= enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
                 enemyYList[i] -= enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
 
@@ -175,6 +179,7 @@ var enemies= {
 
 
             }
+
         }
 
 
