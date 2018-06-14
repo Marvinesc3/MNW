@@ -10,7 +10,6 @@ ctx = canvas.getContext('2d');
 var rightPressed = false;
 var leftPressed = false;
 var upPressed = false;
-var downPressed = false;
 var spacebarPressed = false;
 
 
@@ -35,8 +34,6 @@ function keyDownHandler(e) {
         leftPressed = true;
     } else if (e.keyCode === 87 || e.keyCode === 38) {
         upPressed = true;
-    } else if (e.keyCode === 83 || e.keyCode === 40) {
-        downPressed = true;
     }
     else if (e.keyCode === 32) {
         spacebarPressed = true;
@@ -50,8 +47,6 @@ function keyUpHandler(e) {
         leftPressed = false;
     } else if (e.keyCode === 87 || e.keyCode === 38) {
         upPressed = false;
-    } else if (e.keyCode === 83 || e.keyCode === 40) {
-        downPressed = false;
     } else if (e.keyCode === 32) {
         spacebarPressed = false;
     }
@@ -82,12 +77,9 @@ var enemySpeedList = [];
 var enemyHealthList = [];
 var enemyImgList = [];
 var enemyAngList = [];
-var Baron1 = document.getElementById('Baron');
 
-ennemy_try1 = new Create_enemy(Baron1, 300,300, 2, 100,200,100,90);
-
-
-
+var ship = document.getElementById('ship');
+ennemy_try1 = new Create_enemy(ship, 300,300, 2, 100,200,100,90);
 
 function Create_enemy(image,x,y,speed,width,height,health,ang) {
     this.width = width;
@@ -110,18 +102,12 @@ function Create_enemy(image,x,y,speed,width,height,health,ang) {
 
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
 
-
-
-
 }
 
 var enemies= {
     rotator: function (x, y, ang, i) {
 
-
-
             var rad = ang * Math.PI / 180;
-
 
             ctx.translate(canvas.width/2-50 + enemyWidthList[i] / 2, canvas.height/2-100 + enemyHeightList[i] / 2);
 
@@ -132,9 +118,6 @@ var enemies= {
 
             ctx.translate((canvas.width/2-50 + enemyWidthList[i] / 2) * (-1), (canvas.height/2-100 + enemyHeightList[i] / 2) * (-1));
 
-
-
-
     },
     draw:function () {
 
@@ -142,13 +125,9 @@ var enemies= {
         mapx = canvas.width / 2 - enemyXList[0];
         mapy = canvas.height / 2 - enemyYList[0];
 
-
-
         ctx.drawImage(map, 0, 0, mapWidth, mapHeight, mapx, mapy, mapWidth * 4, mapHeight * 4);
 
         for(i = 0; i<enemyXList.length; i++){
-
-
 
             for(listPos = 0; listPos< xPoslist.length; listPos++) {
                 if(currenttimelist[listPos]<lifetimelist[listPos]) {
@@ -156,9 +135,6 @@ var enemies= {
                     y2 = yPoslist[listPos]+mapy;
                     yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
                     xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
-
-
-
 
                     //ctx.drawImage(Baron, this.x2,this.y2);
 
@@ -176,20 +152,13 @@ var enemies= {
                     enemies.rotator(subx, suby, enemyAngList[z], i);
                     enemies.move();
 
-
-
             }
             ctx.fillStyle = "black";
             ctx.fillText(enemyXList[0]+" , "+enemyYList[0]+"   "+ mapx+" , "+mapy+"   " +subx+ " , "+suby+"   ", 0 , 100);
         }
 
-
        },
     move: function() {
-
-
-
-
 
         for(i = 0; i <enemyYList.length;i++){
         if (upPressed) {
@@ -207,19 +176,7 @@ var enemies= {
 
             }
         }
-        if (downPressed) {
-            if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< mapHeight && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < mapWidth) {
-                enemyXList[i] -= enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
-                enemyYList[i] -= enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
 
-
-            }
-            else {
-                enemyXList[i] += enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
-                enemyYList[i] += enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
-
-            }
-        }
 
         if (rightPressed && i === 0) {
             enemyAngList[i]++;
@@ -329,25 +286,6 @@ var player = {
                 this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
                 this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-            }
-        }
-        if (downPressed) {
-            if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< mapHeight && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < mapWidth) {
-                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-                this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-
-            }
-            else {
-                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
-                this.alpha += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
-                this.omega += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
 
