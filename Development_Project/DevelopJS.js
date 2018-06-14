@@ -78,8 +78,37 @@ var enemyHealthList = [];
 var enemyImgList = [];
 var enemyAngList = [];
 
+
 var ship = document.getElementById('ship');
 ennemy_try1 = new Create_enemy(ship, 300,300, 3, 100,200,100,90);
+
+var boost_speed = 5000;
+var t = new Date();
+var ready = t.getTime();
+t = new Date();
+delay_speed = 1000;
+function speed_boost() {
+
+    t = new Date();
+    ctx.fillText("It gets here " + enemySpeedList[0] + "     " + ready + "        ", 0, 200);
+    if (spacebarPressed === true && ready + boost_speed < t.getTime()) {
+         t = new Date();
+         ready = t.getTime();
+        t = new Date();
+        enemySpeedList[0] += 4;
+
+        setTimeout(function () {
+            enemySpeedList[0] -= 4;
+            ctx.fillText("It gets here " + enemySpeedList[0] + "     " + ready + "        ", 0, 150);
+        }, 500);
+
+
+
+        t = new Date();
+        ready = t.getTime();
+
+    }
+}
 
 function Create_enemy(image,x,y,speed,width,height,health,ang) {
     this.width = width;
@@ -126,8 +155,9 @@ var enemies= {
         mapy = canvas.height / 2 - enemyYList[0];
 
         ctx.drawImage(map, 0, 0, mapWidth, mapHeight, mapx, mapy, mapWidth * 4, mapHeight * 4);
-
+        speed_boost();
         for(i = 0; i<enemyXList.length; i++){
+
 
             for(listPos = 0; listPos< xPoslist.length; listPos++) {
                 if(currenttimelist[listPos]<lifetimelist[listPos]) {
@@ -189,6 +219,8 @@ var enemies= {
         if (leftPressed&& i === 0) {
             enemyAngList[i]--;
         }
+
+
     }}
 
 };
@@ -291,6 +323,25 @@ var player = {
                 this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
                 this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
                 this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+        }
+        if (downPressed) {
+            if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< mapHeight && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < mapWidth) {
+                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+
+            }
+            else {
+                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
 
