@@ -92,8 +92,8 @@ function speed_boost() {
     t = new Date();
     ctx.fillText("It gets here " + enemySpeedList[0] + "     " + ready + "        ", 0, 200);
     if (spacebarPressed === true && ready + boost_speed < t.getTime()) {
-         t = new Date();
-         ready = t.getTime();
+        t = new Date();
+        ready = t.getTime();
         t = new Date();
         enemySpeedList[0] += 4;
 
@@ -136,16 +136,16 @@ function Create_enemy(image,x,y,speed,width,height,health,ang) {
 var enemies= {
     rotator: function (x, y, ang, i) {
 
-            var rad = ang * Math.PI / 180;
+        var rad = ang * Math.PI / 180;
 
-            ctx.translate(canvas.width/2-50 + enemyWidthList[i] / 2, canvas.height/2-100 + enemyHeightList[i] / 2);
+        ctx.translate(canvas.width/2-50 + enemyWidthList[i] / 2, canvas.height/2-100 + enemyHeightList[i] / 2);
 
-            ctx.rotate(rad);
+        ctx.rotate(rad);
 
-            ctx.drawImage(enemyImgList[i],enemyWidthList[i] / 2 * (-1),enemyHeightList[i] / 2 * (-1),enemyWidthList[i],enemyHeightList[i]);
-            ctx.rotate(rad * (-1));
+        ctx.drawImage(enemyImgList[i],enemyWidthList[i] / 2 * (-1),enemyHeightList[i] / 2 * (-1),enemyWidthList[i],enemyHeightList[i]);
+        ctx.rotate(rad * (-1));
 
-            ctx.translate((canvas.width/2-50 + enemyWidthList[i] / 2) * (-1), (canvas.height/2-100 + enemyHeightList[i] / 2) * (-1));
+        ctx.translate((canvas.width/2-50 + enemyWidthList[i] / 2) * (-1), (canvas.height/2-100 + enemyHeightList[i] / 2) * (-1));
 
     },
     draw:function () {
@@ -176,52 +176,52 @@ var enemies= {
 
             for(z = 0; z<enemyYList.length; z++){
 
-                    var subx = enemyXList[z]+mapx;
-                    var suby = enemyXList[z]+mapy;
+                var subx = enemyXList[z]+mapx;
+                var suby = enemyXList[z]+mapy;
 
-                    enemies.rotator(subx, suby, enemyAngList[z], i);
-                    enemies.move();
+                enemies.rotator(subx, suby, enemyAngList[z], i);
+                enemies.move();
 
             }
             ctx.fillStyle = "black";
             ctx.fillText(enemyXList[0]+" , "+enemyYList[0]+"   "+ mapx+" , "+mapy+"   " +subx+ " , "+suby+"   ", 0 , 100);
         }
 
-       },
+    },
     move: function() {
 
         for(i = 0; i <enemyYList.length;i++){
-        if (upPressed) {
-            if (enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
-                enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
-                enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) < 1730 &&
-                enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) < 3125) {
+            if (upPressed) {
+                if (enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
+                    enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) > 0 &&
+                    enemyYList[i] - enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180) < 1730 &&
+                    enemyXList[i] - enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180) < 3125) {
 
-                enemyXList[i] -= enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
-                enemyYList[i] -= enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
+                    enemyXList[i] -= enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
+                    enemyYList[i] -= enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
 
 
+
+                }
+                else {
+                    enemyXList[i] += enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
+                    enemyYList[i] += enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
+
+
+                }
 
             }
-            else {
-                enemyXList[i] += enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
-                enemyYList[i] += enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
 
 
+            if (rightPressed && i === 0) {
+                enemyAngList[i]++;
+            }
+            if (leftPressed&& i === 0) {
+                enemyAngList[i]--;
             }
 
-        }
 
-
-        if (rightPressed && i === 0) {
-            enemyAngList[i]++;
-        }
-        if (leftPressed&& i === 0) {
-            enemyAngList[i]--;
-        }
-
-
-    }}
+        }}
 
 };
 
@@ -246,15 +246,15 @@ var pyke_enemy = {
         zx = canvas.width / 2 - enemyXList[0];
         zy = canvas.height / 2 - enemyYList[0];
 
-       for(i = 0; i < pykeXList.length; i++) {
+        for(i = 0; i < pykeXList.length; i++) {
 
-           x2 = pykeXList[i] + zx;
-           y2 = pykeYList[i] + zy;
+            x2 = pykeXList[i] + zx;
+            y2 = pykeYList[i] + zy;
 
 
-           ctx.drawImage(pyke1, x2, y2,20,20);
+            ctx.drawImage(pyke1, x2, y2,20,20);
 
-       }
+        }
 
 
     },
@@ -380,10 +380,7 @@ function MouseUp(TorF) {
 
 
 
-function updateEnemies() {
-    pyke_enemy.draw1();
-    pyke_enemy.move1();
-}
+
 
 
 function drawGame() {
