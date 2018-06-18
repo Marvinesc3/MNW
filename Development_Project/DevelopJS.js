@@ -1,6 +1,6 @@
 var canvas = document.querySelector('canvas');
 var cannon = document.getElementById('cannon');
-var pyke1 = document.getElementById('pyke');
+var pyke = document.getElementById('pyke');
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -80,7 +80,7 @@ var enemyAngList = [];
 
 
 var ship = document.getElementById('ship');
-ennemy_try1 = new Create_enemy(ship, 300,300, 3, 100,200,100,90);
+ennemy_try1 = new Create_enemy(ship, 300,300, 2, 100,200,100,90);
 
 var boost_speed = 5000;
 var t = new Date();
@@ -90,7 +90,6 @@ delay_speed = 1000;
 function speed_boost() {
 
     t = new Date();
-    ctx.fillText("It gets here " + enemySpeedList[0] + "     " + ready + "        ", 0, 200);
     if (spacebarPressed === true && ready + boost_speed < t.getTime()) {
          t = new Date();
          ready = t.getTime();
@@ -99,7 +98,6 @@ function speed_boost() {
 
         setTimeout(function () {
             enemySpeedList[0] -= 4;
-            ctx.fillText("It gets here " + enemySpeedList[0] + "     " + ready + "        ", 0, 150);
         }, 500);
 
 
@@ -151,19 +149,10 @@ var enemies= {
     draw:function () {
 
         ctx.clearRect(0,0, canvas.width,canvas.height);
-
         mapx = canvas.width / 2 - enemyXList[0];
         mapy = canvas.height / 2 - enemyYList[0];
 
         ctx.drawImage(map, 0, 0, mapWidth, mapHeight, mapx, mapy, mapWidth * 4, mapHeight * 4);
-
-        pyke_enemy.draw1();
-        pyke_enemy.move1();
-        pyke_enemy.check_if_hit();
-        var pyke1 = document.getElementById('pyke');
-        gx = 200 +mapx;
-        gy = 1000 +mapy;
-        ctx.drawImage(pyke1, gx,gy,200,200);
         speed_boost();
         for(i = 0; i<enemyXList.length; i++){
 
@@ -186,14 +175,13 @@ var enemies= {
             for(z = 0; z<enemyYList.length; z++){
 
                     var subx = enemyXList[z]+mapx;
-                    var suby = enemyYList[z]+mapy;
+                    var suby = enemyXList[z]+mapy;
 
                     enemies.rotator(subx, suby, enemyAngList[z], i);
                     enemies.move();
 
             }
             ctx.fillStyle = "black";
-            ctx.fillText(enemyXList[0]+" , "+enemyYList[0]+"   "+ mapx+" , "+mapy+"   " +subx+ " , "+suby+"   ", 0 , 100);
         }
 
        },
@@ -208,141 +196,167 @@ var enemies= {
 
                 enemyXList[i] -= enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
                 enemyYList[i] -= enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
-
-
-
             }
             else {
                 enemyXList[i] += enemySpeedList[i] * Math.cos((enemyAngList[i]+90) * Math.PI / 180);
                 enemyYList[i] += enemySpeedList[i] * Math.sin((enemyAngList[i]+90) * Math.PI / 180);
-
-
             }
-
         }
-
 
         if (rightPressed && i === 0) {
             enemyAngList[i]++;
         }
         if (leftPressed&& i === 0) {
             enemyAngList[i]--;
+            }
         }
-
-
-    }}
-
+    }
 };
-
-
 
 var map = document.getElementById('map');
 var mapWidth = 780;
 var mapHeight = 430;
+var player = {
+    alpha: 1000,
+    omega: 500,
+    x: Math.random() * (mapWidth - 100 * 2) + 100,
+    y: Math.random() * (mapHeight - 200 * 2) + 200,
+    dx: Math.random() * (canvas.width - 100 * 2) + 100,
+    dy: Math.random() * (canvas.height - 200 * 2) + 200,
+    image: document.getElementById("ship"),
+    rotation: 0,
+    speed: 2,
+    width: 100,
+    height: 200,
+    health: 100,
+    x1: canvas.width/2,
+    y1: canvas.height/2,
+    x2:0,
+    y2:0,
+    numtest:0,
+    ax: 200,
+    ay: 200,
+    rotator: function() {
+        ctx.clearRect(0,0, canvas.width,canvas.height);
+        var x = canvas.width/2 - player.x;
+        var y = canvas.height/2 - player.y;
 
-var pykeXList = [];
-var pykeYList = [];
+        //enemies.draw();
 
-var zx = 0;
-var zy = 0;
+        var listPos;
+        this.x1 = x;
+        this.y1 = y;
 
+        ctx.drawImage(map, 0, 0, mapWidth, mapHeight, x, y, mapWidth*4, mapHeight*4);
 
-setInterval(Make_random_pykes, 5000);
+        this.x2 = this.ax+x;
+        this.y2=this.ay+y;
+        this.numtest +=1;
 
-function Make_random_pykes() {
-    dx= Math.random() * (mapWidth - 100 * 2) + 100;
-    dy= Math.random() * (mapHeight - 200 * 2) + 200;
-    make_pykes(dx,dy);
-}
+        this.ax -=1;
+        //ctx.drawImage(Baron, this.x2,this.y2);
 
-function make_pykes(x, y) {
-    pykeXList.push(x);
-    pykeYList.push(y);
+        ctx.drawImage(pyke,0, 0, pyke.width, pyke.height, this.dx, this.dy, pyke.width*2, pyke.height*2);
 
 
-}
-
-var pyke_enemy = {
-    test:0,
-
-
-    draw1:function() {
-        ctx.fillText("gets here", 250, 100);
-
-        zx = canvas.width / 2 - enemyXList[0];
-        zy = canvas.height / 2 - enemyYList[0];
+        for(listPos = 0; listPos< xPoslist.length; listPos++) {
+            if(currenttimelist[listPos]<lifetimelist[listPos]) {
+                ctx.drawImage(cannon, xPoslist[listPos], yPoslist[listPos], 20, 20);
+                yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
+                xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
+                currenttimelist[listPos]+=.1
+            }
+        }
+        var rad = this.rotation * Math.PI / 180;
 
 
-       for(i = 0; i < pykeXList.length; i++) {
+        ctx.translate(canvas.width/2-50 + this.width / 2, canvas.height/2-100 + this.height / 2);
 
-           x2 = pykeXList[i] + zx;
-           y2 = pykeYList[i] + zy;
+        ctx.rotate(rad);
+        ctx.drawImage(this.image,this.width / 2 * (-1),this.height / 2 * (-1),this.width,this.height);
 
+        ctx.rotate(rad * ( -1 ) );
 
-           ctx.drawImage(pyke1, x2, y2,50,50);
-
-       }
-
+        ctx.translate((canvas.width/2-50 + this.width / 2) * (-1), (canvas.height/2-100 + this.height / 2) * (-1));
+        Make_Bullets();
 
     },
-    move1: function() {
+    move: function() {
+        if (upPressed) {
+            if (this.y - this.speed * Math.sin((this.rotation+90) * Math.PI / 180) > 0 && this.x - this.speed * Math.cos((this.rotation+90) * Math.PI / 180) > 0) {
+                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+            else {
+                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+            }
+        }
+        if (downPressed) {
+            if (this.y + this.speed * Math.sin((this.rotation+90) * Math.PI / 180)< mapHeight && this.x+this.speed * Math.cos((this.rotation+90) * Math.PI / 180) < mapWidth) {
+                this.x += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
 
-        zx = canvas.width / 2 - enemyXList[0];
-        zy = canvas.height / 2 - enemyYList[0];
-        ctx.fillText("gets here", 250, 150);
-        for(i = 0; i < pykeXList.length; i++) {
-            if ((pykeXList[i]+zx) - ( enemyXList[0]+mapx) > 0) {
-                pykeXList[i] -= 1;
             }
-
-            if ((pykeXList[i]+zx) - (enemyXList[0]+mapx) < 0) {
-                pykeXList[i] += 1;
-            }
-            if (pykeYList[i]+zy - (enemyYList[0]+mapy)> 0) {
-                pykeYList[i] -= 1;
-            }
-            if (pykeYList[i]+zy- (enemyYList[0]+mapy)< 0) {
-                pykeYList[i] += 1;
+            else {
+                this.x -= this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.y -= this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.dx += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.dy += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
+                this.alpha += this.speed * Math.cos((this.rotation+90) * Math.PI / 180);
+                this.omega += this.speed * Math.sin((this.rotation+90) * Math.PI / 180);
             }
         }
 
+        if (rightPressed) {
+            this.rotation++;
+        }
+        if (leftPressed) {
+            this.rotation--;
+        }
+        if(this.dx - this.x-this.x1>0){
+            this.dx-=1;
+        }
 
-
+        if(this.dx - this.x-this.x1<0){
+            this.dx+=1;
+        }
+        if(this.dy - this.y+this.y-100>0){
+            this.dy-=1;
+        }
+        if(this.dy - this.y + this.y-100<0){
+            this.dy+=1;
+        }
     },
 
-    check_if_hit: function () {
-        ctx.fillText("gets here", 250, 200);
-        for(i = 0; i < pykeXList.length; i++) {
-
-            for(z = 0; z < xPoslist.length; z++) {
-                if(pykeXList[i]+50>xPoslist[z]+20 &&pykeXList[i] <xPoslist[z] && pykeYList[i]+50>yPoslist[z]+20 &&pykeYList[i] <yPoslist[z] ){
-                    pykeYList.splice(i, 1);
-                    pykeXList.splice(i, 1);
-
-
-                    xPoslist.splice(z,1);
-                    yPoslist.splice(z,1);
-
-                     speedlist.splice(z,1);
-                     arclist.splice(z,1);
-                   lifetimelist.splice(z,1);
-                   currenttimelist.splice(z,1);
-                }
-            }
-        }
+    update: function() {
+        this.rotator();
     }
-
-
 };
-
-var Baron = document.getElementById('Baron');
-var enemyArray = [];
 
 
 
 function makeNewEnemies() {
     var x = new Enemy();
     x.addToArray();
+}
+
+function drawHealthBar() {
+    ctx.clearRect(10, 10, player.health, 25);
+    ctx.fillStyle = "#FF0000";
+    ctx.fillRect(10, 10, player.health, 25);
 }
 
 
@@ -363,7 +377,6 @@ var arc2 = 90;
 
 
 function showCoords(event) {
-
     x1 = mouse.x;
     y1 = mouse.y;
     rad1 = Math.atan((-1*(y1-canvas.height/2))/(x1-canvas.width/2));
@@ -374,7 +387,7 @@ function showCoords(event) {
     arc2 = rad2 * 180 / Math.PI;
     if (x1 <canvas.width/2)
         arc2 += 180;
-    document.getElementById("myText").innerHTML = "x: " + x1 + " y: " + y1 +"  "+arc2;
+    document.getElementById("myText").innerHTML = "x: " + x1 + " y: " + y1;
 
 }
 var mousePos = false;
@@ -386,10 +399,6 @@ function Make_Bullets() {
 
     d = new Date();
     if(mousePos === true && shot + attack_speed< d.getTime()){
-        zx = canvas.width / 2 - enemyXList[0];
-        zy = canvas.height / 2 - enemyYList[0];
-        var subx = enemyXList[0]+zx;
-        var suby = enemyYList[0]+zy;
         Bullet(enemyXList[0],enemyYList[0], 3,arc2,20,0);
 
         d = new Date();
@@ -408,25 +417,52 @@ function MouseUp(TorF) {
     }
 }
 
+var xp = 100;
+var lvl = 0;
+function updateXP(){
+    if(xp === 100){
+        document.getElementById("lvl1").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
+        document.getElementById("lvl1").style.backgroundSize = "cover";
+        lvl+=1;
+    }
 
+    if(xp === 200){
+        document.getElementById("lvl2").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
+        document.getElementById("lvl2").style.backgroundSize = "cover";
+        lvl+=1;
+    }
 
+    if(xp === 300){
+        document.getElementById("lvl3").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
+        document.getElementById("lvl3").style.backgroundSize = "cover";
+        lvl+=1;
+    }
 
+}
 
+function isLevelUP(){
+    if(lvl === 1){
+        document.getElementById("lvl1").style.backgroundImage = "none";
+
+    }
+}
+
+function drawCharacter() {
+    player.update();
+}
 
 function drawGame() {
-
     requestAnimationFrame(drawGame);
     Make_Bullets();
-
-
-
+    drawCharacter();
+    updateXP();
+    //player.move();
     enemies.draw();
-
-    //pyke_enemy.draw1();
-    //pyke_enemy.move1();
+    drawHealthBar();
     updateEnemies();
-
-
+    if (player.health<=0) {
+        window.location.replace("deathScreen.html");
+    }
     ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
