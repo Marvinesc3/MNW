@@ -48,7 +48,8 @@ function drawImageRot(img,x,y,width,height,deg){
     //Rotate the canvas around the origin
     context.rotate(rad);
     //draw the image
-    context.drawImage(img, width / 2 * (-1),height / 2 * (-1),width,height);
+     context.drawImage(img, x, y,width, height);
+
     //reset the canvas
     context.rotate(rad * ( -1 ) );
     context.translate((x + width / 2) * (-1), (y + height / 2) * (-1));
@@ -60,7 +61,7 @@ setInterval(function() {
 }, 1000 / 60);
 
 var canvas = document.getElementById('canvas');
-var ship = document.getElementById('ship');
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 var context = canvas.getContext('2d');
@@ -68,7 +69,11 @@ socket.on('state', function(players) {
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (var id in players) {
         var player = players[id];
-        context.fillRect(player.x, player.y, player.width, player.height);
-        //context.drawImage(ship, player.x, player.y, player.width, player.height);
+
+
+        var img = new Image();
+        img.src = 'https://lh3.googleusercontent.com/jix6-RXVQlNBJafSeUTrqIB8Snms7DVIpeaWg9clCkwAv6jqj0KN178tZqWAoWIAqtCBcQ8=s85';
+        drawImageRot(img, player.x,player.y,player.width,player.height,player.rotation);
+
     }
 });
