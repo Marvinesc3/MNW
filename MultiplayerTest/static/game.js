@@ -49,7 +49,6 @@ function drawImageRot(img,x,y,width,height,deg){
     context.rotate(rad);
     //draw the image
      context.drawImage(img, x, y,width, height);
-
     //reset the canvas
     context.rotate(rad * ( -1 ) );
     context.translate((x + width / 2) * (-1), (y + height / 2) * (-1));
