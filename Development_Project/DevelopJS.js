@@ -417,35 +417,6 @@ function MouseUp(TorF) {
     }
 }
 
-var xp = 100;
-var lvl = 0;
-function updateXP(){
-    if(xp === 100){
-        document.getElementById("lvl1").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
-        document.getElementById("lvl1").style.backgroundSize = "cover";
-        lvl+=1;
-    }
-
-    if(xp === 200){
-        document.getElementById("lvl2").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
-        document.getElementById("lvl2").style.backgroundSize = "cover";
-        lvl+=1;
-    }
-
-    if(xp === 300){
-        document.getElementById("lvl3").style.backgroundImage = "url('https://st2.depositphotos.com/5266903/8456/v/950/depositphotos_84567224-stock-illustration-arrow-up-flat-white-color.jpg')";
-        document.getElementById("lvl3").style.backgroundSize = "cover";
-        lvl+=1;
-    }
-
-}
-
-function isLevelUP(){
-    if(lvl === 1){
-        document.getElementById("lvl1").style.backgroundImage = "none";
-
-    }
-}
 
 function drawCharacter() {
     player.update();

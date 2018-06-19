@@ -33,9 +33,8 @@ table {
     font-size: 6em;
     letter-spacing: 50px;
     text-transform: uppercase;
-    font-family: 'Ubuntu', sans-serif;
     font-family: 'Acme', sans-serif;
-    color: #62d128;
+    color: #64bd2b;
     text-shadow: 4px 4px black;
 }
 
@@ -44,21 +43,26 @@ body, html {
     background-color: #e7ffe0;
 }
 
-@font-face {
-    font-family: 'Font Awesome 5 Brands';
-    font-style: normal;
-    font-weight: normal;
-    src: url("/webfonts/fa-brands-400.eot");
-    src: url("/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/webfonts/fa-brands-400.woff2") format("woff2"), url("/webfonts/fa-brands-400.woff") format("woff"), url("/webfonts/fa-brands-400.ttf") format("truetype"), url("/webfonts/fa-brands-400.svg#fontawesome") format("svg");
+.buttons{
+    background-color: #a5e4a0;
+    position: absolute;
+    padding:14px 20px;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius: 25px;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-weight:500;
+    color: #FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+    font-size: 1.3em;
+    letter-spacing: 5px;
+    font-family: 'Raleway', sans-serif;
+    width: 15%;
 }
 
-@font-face {
-    font-family: 'Font Awesome 5 Free';
-    font-style: normal;
-    font-weight: 400;
-    src: url("/webfonts/fa-regular-400.eot");
-    src: url("/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("/webfonts/fa-regular-400.woff2") format("woff2"), url("/webfonts/fa-regular-400.woff") format("woff"), url("/webfonts/fa-regular-400.ttf") format("truetype"), url("/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+.buttons:hover{
+    color:#000000;
+    background-color:#FFFFFF;
 }
-
-
-

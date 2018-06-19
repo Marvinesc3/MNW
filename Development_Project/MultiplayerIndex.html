@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>End of Year Project - Comp Sci</title>
-    <link rel="stylesheet" href="public/indexStyles.css">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Acme|Ubuntu" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <style>
 
         #animation {
@@ -33,7 +32,7 @@
             100% {transform: rotate(360deg)}
         }
 
-        .loadedImg, #titleHeader, .buttons {
+        .loadedImg, #titleHeader, #playButton, #nameTag {
             position: relative;
             -webkit-animation-name: animatebottom;
             -webkit-animation-duration: 1s;
@@ -59,26 +58,16 @@
 </head>
 <body onload="timeFunction()">
 <div id="animation"></div>
-<div id = "boatImg" class = "loadedImg" style = "
-   background-image: url(http://getwallpapers.com/wallpaper/full/a/8/2/255487.jpg);
-   height:50%;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-   display: none;
-"></div>
 <div id = "title">
     <center><h1 id="titleHeader" style="display: none">XPLORE</h1></center>
 </div>
 
-<div>
+<div ng-app="">
     <center>
-        <button class="buttons" id = "playButton1" onclick="location.href='game.html'" style="display: none;" value="Solo">Single</button>
-        <button class="buttons" id = "playButton2" onclick="location.href='MultiplayerIndex.html'" style="display: none;" value="Multiplayer">Online</button>
+        <input type = "text" id="nameTag" ng-model="nametag" placeholder="Enter your name here" style="width: 450px; height: 20px; display: none;">
+        <button id = "playButton" style="display: none;" value="Set Sail">Set Sail {{nametag}}</button>
     </center>
-
 </div>
-
 <script>
     var holder;
 
@@ -88,17 +77,12 @@
 
     function showContent(){
         document.getElementById("animation").style.display = "none";
-        document.getElementById("boatImg").style.display = "block";
         document.getElementById("titleHeader").style.display = "block";
-        document.getElementById("playButton1").style.display = "block";
-        document.getElementById("playButton2").style.display = "block";
-
+        document.getElementById("nameTag").style.display = "inline-block";
+        document.getElementById("playButton").style.display = "inline-block";
     }
 </script>
 
 
 </body>
 </html>
-
-
-
