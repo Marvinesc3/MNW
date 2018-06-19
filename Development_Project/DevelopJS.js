@@ -225,8 +225,8 @@ var enemies= {
 };
 
 var map = document.getElementById('map');
-var mapWidth = 780;
-var mapHeight = 430;
+var mapWidth = 1024;
+var mapHeight = 512;
 
 var pykeXList = [];
 var pykeYList = [];
@@ -255,8 +255,6 @@ var pyke_enemy = {
 
 
     draw1:function() {
-        ctx.fillText("gets here", 250, 100);
-
         zx = canvas.width / 2 - enemyXList[0];
         zy = canvas.height / 2 - enemyYList[0];
 
@@ -277,7 +275,6 @@ var pyke_enemy = {
 
         zx = canvas.width / 2 - enemyXList[0];
         zy = canvas.height / 2 - enemyYList[0];
-        ctx.fillText("gets here", 250, 150);
         for(i = 0; i < pykeXList.length; i++) {
             if ((pykeXList[i]+zx) - ( enemyXList[0]+mapx) > 0) {
                 pykeXList[i] -= 1;
@@ -299,7 +296,6 @@ var pyke_enemy = {
     },
 
     check_if_hit: function () {
-        ctx.fillText("gets here", 250, 200);
         for(i = 0; i < pykeXList.length; i++) {
 
             if(pykeXList[i]+50<enemyXList[0]+80 &&pykeXList[i] >enemyXList[0]-20 && pykeYList[i]+50<enemyYList[0]+200 &&pykeYList[i]+150 >enemyYList[0]
@@ -307,6 +303,9 @@ var pyke_enemy = {
                 pykeYList.splice(i, 1);
                 pykeXList.splice(i, 1);
                 enemyHealthList[0] -=5;
+                if (enemyHealthList[0] <= 0) {
+                    window.location = "deathScreen.html";
+                }
                 enemyXPList[0] +=20;
 
             }
@@ -334,7 +333,6 @@ var pyke_enemy = {
 
 };
 
-var Baron = document.getElementById('Baron');
 var enemyArray = [];
 
 
@@ -348,7 +346,7 @@ function drawHealthBar() {
     ctx.clearRect(10, 10, enemyHealthList[0], 25);
     ctx.fillStyle = "#FF0000";
     ctx.fillRect(10, 10, enemyHealthList[0], 25);
-    ctx.fillText(enemyXPList[0], 10, 100)
+    //ctx.fillText(enemyXPList[0], 10, 100)
 }
 
 
@@ -380,8 +378,6 @@ function showCoords(event) {
     arc2 = rad2 * 180 / Math.PI;
     if (x1 <canvas.width/2)
         arc2 += 180;
-    document.getElementById("myText").innerHTML = "x: " + x1 + " y: " + y1 +"  "+arc2;
-
 }
 var mousePos = false;
 var attack_speed = 500;
@@ -414,25 +410,15 @@ function MouseUp(TorF) {
     }
 }
 
-
-
-
-
-
 function drawGame() {
-
     requestAnimationFrame(drawGame);
     Make_Bullets();
-
-
-
     enemies.draw();
     drawHealthBar();
     updateEnemies();
-    if (enemyHealthList[0]<=0) {
-        window.location.replace("deathScreen.html");
-    }
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.font="30px Arial";
+    ctx.fillText(enemyXPList[0], 10, 10)
 }
 
 drawGame();

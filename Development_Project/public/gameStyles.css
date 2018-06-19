@@ -30,13 +30,14 @@ table {
 /* end reset browser styles */
 
 canvas {
-    background-color: rgba(4, 2, 1, 0.42);
+    background-color: sandybrown;
     cursor: crosshair;
 }
 
 body {
     margin: 0;
     overflow: hidden;
+    background-color: sandybrown;
 }
 
 img {
