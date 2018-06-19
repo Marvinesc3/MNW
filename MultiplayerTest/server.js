@@ -1,4 +1,5 @@
 // Dependencies.
+
 var express = require('express');
 var http = require('http');
 var path = require('path');
@@ -19,7 +20,12 @@ app.get('/', function(request, response) {
 server.listen(5000, function() {
     console.log('Starting server on port 5000');
 });
-
+speedlist =[];
+arclist = [];
+ xPoslist = [];
+ yPoslist = [];
+lifetimelist = [];
+currenttimelist = [];
 var players = {};
 io.on('connection', function(socket) {
     socket.on('new player', function() {
@@ -47,9 +53,71 @@ io.on('connection', function(socket) {
         if (data.right) {
             player.rotation+=5;
         }
+        /*if(data.mousedown){
+            var x1 = event.clientX;
+            var y1 = event.clientY;
+            rad2 = Math.atan((-1*(y1 - (canvas.height/2)))/(x1-(canvas.width/2)));
+            arc2 = rad2 * 180 / Math.PI;
+            if (x1 <canvas.width/2)
+                arc2 += 180;
+
+            var mousePos = false;
+            var attack_speed = 500;
+            var d = new Date();
+            var shot = d.getTime();
+            d = new Date();
+
+
+                d = new Date();
+                if (true) {
+                    zx = canvas.width / 2 - player.x;
+                    zy = canvas.height / 2 - player.y;
+                    var subx = player.x + zx;
+                    var suby = player.y + zy;
+                    Bullet(subx, suby, 3, arc2, 20, 0);
+
+                    d = new Date();
+                    shot = d.getTime();
+
+                }
+
+
+        }
+        */
+
+
     });
+
 });
 
+function Bullet(xPos, yPos,speed,arc, lifetime,currenttime) {
+    speedlist.push(speed);
+    arclist.push(arc);
+
+    xPoslist.push(xPos);
+    yPoslist.push(yPos);
+    lifetimelist.push(lifetime);
+    currenttimelist.push(currenttime);
+}
+
+setInterval(function () {
+
+
+    for (var listPos = 0; listPos < xPoslist.length; listPos++) {
+        if (currenttimelist[listPos] < lifetimelist[listPos]) {
+            x2 = xPoslist[listPos] + mapx;
+            y2 = yPoslist[listPos] + mapy;
+            yPoslist[listPos] -= (Math.sin(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
+            xPoslist[listPos] += (Math.cos(arclist[listPos] * Math.PI / 180.0)) * speedlist[listPos];
+            var img = new Image();
+            img.src = 'https://lh3.googleusercontent.com/jix6-RXVQlNBJafSeUTrqIB8Snms7DVIpeaWg9clCkwAv6jqj0KN178tZqWAoWIAqtCBcQ8=s85';
+            drawImageRot(img, x2, y2, 20, 20);
+
+            currenttimelist[listPos] += .1;
+        }
+    }
+    },1000/30
+);
 setInterval(function() {
     io.sockets.emit('state', players);
 }, 1000 / 30);

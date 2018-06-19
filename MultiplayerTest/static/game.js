@@ -1,10 +1,15 @@
 var socket = io();
 
 var movement = {
-    up: false,
     down: false,
     left: false,
     right: false
+};
+var mouse = {
+    down: false,
+    up: true,
+    x: 0,
+    y:0
 };
 document.addEventListener('keydown', function(event) {
     switch (event.keyCode) {
@@ -21,6 +26,17 @@ document.addEventListener('keydown', function(event) {
             movement.down = true;
             break;
     }
+    });
+document.addEventListener('mousedown', function (event) {
+    mouse.down = true;
+    mouse.x= event.clientX;     // Get the horizontal coordinate
+    mouse.y = event.clientY;
+
+});
+document.addEventListener('mouseup', function (event) {
+    mouse.down = false;
+    mouse.x= event.clientX;     // Get the horizontal coordinate
+    mouse.y = event.clientY;
 });
 document.addEventListener('keyup', function(event) {
     switch (event.keyCode) {
@@ -49,6 +65,7 @@ function drawImageRot(img,x,y,width,height,deg){
     context.rotate(rad);
     //draw the image
      context.drawImage(img, x, y,width, height);
+
     //reset the canvas
     context.rotate(rad * ( -1 ) );
     context.translate((x + width / 2) * (-1), (y + height / 2) * (-1));
@@ -72,7 +89,7 @@ socket.on('state', function(players) {
 
         var img = new Image();
         img.src = 'https://lh3.googleusercontent.com/jix6-RXVQlNBJafSeUTrqIB8Snms7DVIpeaWg9clCkwAv6jqj0KN178tZqWAoWIAqtCBcQ8=s85';
-        drawImageRot(img, player.x,player.y,player.width,player.height,player.rotation);
+        drawImageRot(img, player.x,player.y,player.width,player.height,30);
 
     }
 });
