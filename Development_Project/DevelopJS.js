@@ -85,7 +85,7 @@ var enemyXPList = [];
 
 
 var ship = document.getElementById('ship');
-ennemy_try1 = new Create_enemy(ship, 300,300, 2, 100,200,100,90);
+ennemy_try1 = new Create_enemy(ship, 300,300, 4, 100,200,100,90);
 
 var boost_speed = 5000;
 var t = new Date();
@@ -234,7 +234,7 @@ var zx = 0;
 var zy = 0;
 
 
-setInterval(Make_random_pykes, 5000);
+setInterval(Make_random_pykes, 200);
 
 function Make_random_pykes() {
     dx= Math.random() * (mapWidth - 100 * 2) + 100;
