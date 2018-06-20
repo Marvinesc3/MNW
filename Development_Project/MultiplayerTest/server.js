@@ -73,9 +73,18 @@ io.on('connection', function(socket) {
 
 
         }
+        setInterval(function () {
+            for( i  =0; i< player.xBullets.length; i++){
+                player.xBullets[i] +=50;
+                player.yBullets[i] +=50;
+
+
+            }
+        }, 1000/30);
     });
 });
 
 setInterval(function() {
     io.sockets.emit('state', players);
 }, 1000 / 30);
+
