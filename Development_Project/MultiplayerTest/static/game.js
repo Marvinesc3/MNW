@@ -79,13 +79,14 @@ socket.on('state', function(players) {
 
         context.fillText(player.x+" ", 50, 100);
 
-        if(player.xBullets === []){
+      if(player.xBullets.length > 0){
         for( i  =0; i< player.xBullets.length; i++){
             context.fillRect(player.xBullets[i], player.yBullets[i], 50, 50);
             player.xBullets[i] +=player.speedBullets[i];
             player.yBullets[i] +=player.speedBullets[i];
+
         }
-        }
+    }
     }
 });
 
