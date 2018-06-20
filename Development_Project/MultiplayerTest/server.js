@@ -51,13 +51,11 @@ io.on('connection', function(socket) {
         if (data.left) {
             player.rotation-=2*Math.PI;
         }
-        else{
-            player.num = 1;
-        }
+
         if (data.up) {
             player.x -= player.speed * Math.cos((player.rotation+90) * Math.PI / 180);
             player.y -= player.speed * Math.sin((player.rotation+90) * Math.PI / 180);
-            player.num = 2;
+
         }
         if (data.right) {
             player.rotation+=2*Math.PI;
@@ -67,7 +65,7 @@ io.on('connection', function(socket) {
             player.y += player.speed * Math.sin((player.rotation+90) * Math.PI / 180);
         }
         if (data.space1){
-
+            player.num = 1;
             player.xBullets.push(player.x);
             player.yBullets.app(player.y);
             player.speedBullets.push(1);
