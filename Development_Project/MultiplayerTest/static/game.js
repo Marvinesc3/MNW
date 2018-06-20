@@ -9,13 +9,11 @@ var movement = {
     up: false,
     down: false,
     left: false,
-    right: false
+    right: false,
+    space1:false
 };
 
-var mouse = {
-    mouseX: undefined,
-    mouseY: undefined
-};
+
 
 
 document.addEventListener('keydown', function(event) {
@@ -32,6 +30,10 @@ document.addEventListener('keydown', function(event) {
         case 83: // S
             movement.down = true;
             break;
+        case 67: // X
+            movement.space1 = true;
+            break;
+
     }
 });
 document.addEventListener('keyup', function(event) {
@@ -48,16 +50,13 @@ document.addEventListener('keyup', function(event) {
         case 83: // S
             movement.down = false;
             break;
+        case 67: //X
+            movement.space1 = false;
+            break;
     }
 });
 
-/*
-document.addEventListener('click', function(event){
-    mouse.mouseX = event.clientX;
-    mouse.mouseY = event.clientY;
-    socket.emit('mousePos', mouse);
-});
-*/
+
 
 socket.emit('new player');
 setInterval(function() {
@@ -76,15 +75,17 @@ socket.on('state', function(players) {
         context.drawImage(img, -player.width / 2, -player.height / 2, player.width, player.height);
         context.fill();
         context.restore();
-    }
-    /*socket.on('shoot', function(bullets) {
-        for (var i=0; i<bullets.length; i++) {
-            bullet = bullets[i];
-            var bmg = new Image();
-            bmg.src= 'https://s1.piq.land/2013/02/24/K22HRK2BcpIwVYDuzwgpicei_400x400.png';
-            context.drawImage(bgm, bullet.x, bullet.y, bullet.width, bullet.height);
+        context.fillStyle = "red";
+
+        context.fillText(player.x+" ", 50, 100);
+
+        if(player.xBullets === []){
+        for( i  =0; i< player.xBullets.length; i++){
+            context.fillRect(player.xBullets[i], player.yBullets[i], 50, 50);
+            player.xBullets[i] +=player.speedBullets[i];
+            player.yBullets[i] +=player.speedBullets[i];
         }
-    });
-    */
+        }
+    }
 });
 

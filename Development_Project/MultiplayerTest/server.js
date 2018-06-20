@@ -21,43 +21,43 @@ server.listen(63342, function() {
 });
 
 var players = {};
-//---------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------------------
 
-var bullets = [];
-function Bullet(x, y, angle){
-    this.x = x;
-    this.y = y;
-    this.width = 40;
-    this.height = 40;
-    this.ang = angle;
-    this.speed = 5;
-}
 
 //---------------------------------------------------------------------------------------------------------------
 io.on('connection', function(socket) {
     socket.on('new player', function() {
         players[socket.id] = {
-            x: 300,
+            num: 0,
+            x: 290,
             y: 300,
             rotation: 0,
             width: 70,
             height: 70,
             speed: 15,
-            health:100
+            health:100,
+            xBullets: [],
+            yBullets:[],
+            speedBullets:[],
+            angBullets:[]
         };
     });
     socket.on('disconnect', function(){
         delete players[socket.id];
-        delete bullets[socket.id];
+
     });
     socket.on('movement', function(data) {
         var player = players[socket.id] || {};
         if (data.left) {
             player.rotation-=2*Math.PI;
         }
+        else{
+            player.num = 1;
+        }
         if (data.up) {
             player.x -= player.speed * Math.cos((player.rotation+90) * Math.PI / 180);
             player.y -= player.speed * Math.sin((player.rotation+90) * Math.PI / 180);
+            player.num = 2;
         }
         if (data.right) {
             player.rotation+=2*Math.PI;
@@ -66,7 +66,15 @@ io.on('connection', function(socket) {
             player.x += player.speed * Math.cos((player.rotation+90) * Math.PI / 180);
             player.y += player.speed * Math.sin((player.rotation+90) * Math.PI / 180);
         }
+        if (data.space1){
 
+            player.xBullets.push(player.x);
+            player.yBullets.app(player.y);
+            player.speedBullets.push(1);
+            player.angBullets.push(player.rotation);
+
+
+        }
     });
 });
 

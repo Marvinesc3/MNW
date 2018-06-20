@@ -2,6 +2,10 @@ var canvas = document.querySelector('canvas');
 var cannon = document.getElementById('cannon');
 var pyke1 = document.getElementById('pyke');
 
+var map = document.getElementById('map');
+var mapWidth = 1024;
+var mapHeight = 512;
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -161,9 +165,7 @@ var enemies= {
         pyke_enemy.move1();
         pyke_enemy.check_if_hit();
         var pyke1 = document.getElementById('pyke');
-        gx = 200 +mapx;
-        gy = 1000 +mapy;
-        ctx.drawImage(pyke1, gx,gy,200,200);
+
         speed_boost();
         for(i = 0; i<enemyXList.length; i++){
 
@@ -224,9 +226,6 @@ var enemies= {
     }
 };
 
-var map = document.getElementById('map');
-var mapWidth = 1024;
-var mapHeight = 512;
 
 var pykeXList = [];
 var pykeYList = [];
