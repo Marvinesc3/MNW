@@ -37,7 +37,7 @@ io.on('connection', function(socket) {
             speed: 15,
             health:100,
             xBullets: [],
-            yBullets:[],
+            yBullets: [],
             speedBullets:[],
             angBullets:[]
         };
@@ -67,7 +67,7 @@ io.on('connection', function(socket) {
         if (data.space1){
             player.num = 1;
             player.xBullets.push(player.x);
-            player.yBullets.app(player.y);
+            player.yBullets.push(player.y);
             player.speedBullets.push(1);
             player.angBullets.push(player.rotation);
 
