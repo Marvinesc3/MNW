@@ -81,9 +81,10 @@ socket.on('state', function(players) {
 
       if(player.xBullets.length > 0){
         for( i  =0; i< player.xBullets.length; i++){
+            player.xBullets[i] +=5;
+            player.yBullets[i] +=5;
             context.fillRect(player.xBullets[i], player.yBullets[i], 50, 50);
-            player.xBullets[i] +=player.speedBullets[i];
-            player.yBullets[i] +=player.speedBullets[i];
+
 
         }
     }
