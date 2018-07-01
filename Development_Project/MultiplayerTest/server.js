@@ -4,9 +4,15 @@ var http = require('http');
 var path = require('path');
 var socketIO = require('socket.io');
 
+
 var app = express();
 var server = http.Server(app);
 var io = socketIO(server);
+
+var attack_speed = 500;
+var d = new Date();
+var shot = d.getTime();
+d = new Date();
 
 app.set('port', 5000);
 app.use('/static', express.static(__dirname + '/static'));
@@ -66,24 +72,36 @@ io.on('connection', function(socket) {
         }
         if (data.space1){
 
-            player.xBullets.push(player.x);
-            player.yBullets.push(player.y);
-            player.speedBullets.push(1);
-            player.angBullets.push(player.rotation);
-            player.num += 1;
+
+
+                d = new Date();
+                if( shot + attack_speed< d.getTime()){
+                    player.xBullets.push(player.x);
+                    player.yBullets.push(player.y);
+                    player.speedBullets.push(1);
+                    player.angBullets.push(player.rotation);
+                    player.num += 1;
+
+                    d = new Date();
+                    shot = d.getTime();
+
+                }
+
+
 
 
         }
         if(player.num ===1){
+
         setInterval(function () {
 
             for(var i  =0; i< player.num; i++){
-                player.xBullets[i] -= .5*Math.cos((player.angBullets[i]+90) * Math.PI / 180);
-                player.yBullets[i] -=.5*Math.sin((player.angBullets[i]+90) * Math.PI / 180);
+                player.xBullets[i] -= 2*Math.cos((player.angBullets[i]+90) * Math.PI / 180);
+                player.yBullets[i] -=2*Math.sin((player.angBullets[i]+90) * Math.PI / 180);
 
 
             }
-        }, 1000/1000);
+        }, 1000/20);
         }
     });
 });
