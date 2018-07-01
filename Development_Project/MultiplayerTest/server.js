@@ -78,8 +78,8 @@ io.on('connection', function(socket) {
         setInterval(function () {
 
             for(var i  =0; i< player.num; i++){
-                player.xBullets[i] =5 * Math.cos((player.rotation+90) * Math.PI / 180);
-                player.yBullets[i] -= 5 * Math.sin((player.rotation+90) * Math.PI / 180);
+                player.xBullets[i] -= .5*Math.cos((player.angBullets[i]+90) * Math.PI / 180);
+                player.yBullets[i] -=.5*Math.sin((player.angBullets[i]+90) * Math.PI / 180);
 
 
             }
