@@ -80,7 +80,7 @@ socket.on('state', function(players) {
         context.fillText(player.num+" ", 50, 100);
 
       if(player.xBullets.length > 0){
-        for( i  =0; i< player.xBullets.length; i++){
+        for( var i  =0; i< player.xBullets.length; i++){
 
             context.fillRect(player.xBullets[i], player.yBullets[i], 50, 50);
 

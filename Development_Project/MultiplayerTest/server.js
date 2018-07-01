@@ -65,22 +65,26 @@ io.on('connection', function(socket) {
             player.y += player.speed * Math.sin((player.rotation+90) * Math.PI / 180);
         }
         if (data.space1){
-            player.num = 1;
+
             player.xBullets.push(player.x);
             player.yBullets.push(player.y);
             player.speedBullets.push(1);
             player.angBullets.push(player.rotation);
+            player.num += 1;
 
 
         }
+        if(player.num ===1){
         setInterval(function () {
-            for( i  =0; i< player.xBullets.length; i++){
-                player.xBullets[i] +=50;
-                player.yBullets[i] +=50;
+
+            for(var i  =0; i< player.num; i++){
+                player.xBullets[i] =5 * Math.cos((player.rotation+90) * Math.PI / 180);
+                player.yBullets[i] -= 5 * Math.sin((player.rotation+90) * Math.PI / 180);
 
 
             }
         }, 1000/30);
+        }
     });
 });
 
